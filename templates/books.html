@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+	{% for book in books %}
+        {% if book.genre == 'Fantasy' %}
+            {{book.title}}
+            {{book.author}}
+            {{book.genre}}
+            {{book.series}}
+            {{book.published}}
+            {{book.amazon}}
+            {{book.description}}
+            {{book.picture}}
+        {% endif %}
+	{% endfor %}
+{% endblock %}

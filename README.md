@@ -21,10 +21,48 @@ The former is to add collections to the database. For this project the underline
 3. users: user info is collected when a user registers and is used to personalise the reading list
 4. user_book_rating: the number of users that has rated a certain book is collected to calculate the average rating for this book
 
+Create an instance of PyMongo and add the app into that by adding "mongo = PyMongo(app)" to the python file.
+
 
 ### Flask
 Flask was installed by using pip3 install flask. For python 3 use pip3 and not pip.
 (gitpod doesn't need the addition of sudo, but if you are working on a different IDE the command sudo pip3 install flask is probably needed)
+Add the following to the app.py file: from flask import Flask
+
+create a Flask app by adding 'app = Flask(__name__)' to the python file
+
+### Connect Flask to MongoDB
+To get Flask talking to MongoDB a third party library needs to be installed by entering 'pip3 install flask-pymongo' in the terminal.
+Additionally, a package called dnspython needs to be installed to be able to connect to MongoDB Atlas. Use the command 'pip3 install dnspython'.
+
+Add the underlining to the app.py file:
+
+---to be able to access the library---
+from flask_pymongo import PyMongo
+
+---the data stored in MongoDB is in the BSON-format, so access to the BSON-library is needed---
+from bson.objectid import objectid
+
+Now that the libraries are in place we need to add the underlining configuration to this Flask application in the python file:
+
+app.config["MONGO_DBNAME"] = 'the-reading-list'
+app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
+
+The "MONGO_URI" is a link that is provided by MongoDB:
+1. Go to MongoDB en select "Overview"
+2. On the right click the Connect-button
+3. In the pop-up choose the option "Connect Your Application"
+4. Copy the provided link with the format: mongodb+srv://rory81:<password>@myfirstcluster-nn45a.mongodb.net/<name_database>?retryWrites=true&w=majority
+    a) change <password> to your own personal password
+    b) change <name_database> to 'the_reading_list'
+5. Use https://gitpod.io/environment-variables/ to set MONGO_URI as an environment variable
+    a) Name= MONGO_URI
+    b) Value= the link from step 4 with the correct password and database name
+    c) repository= the workspace directory
+6. Stop and restart the workspace
+
+
+
 
 
 ### Deployment on Heroku
@@ -64,4 +102,28 @@ Werkzeug==0.16.0
 In other words, which file is used to call the application and run it. To create a Procfile enter 'echo web: python app.py > Procfile'.
 A file is created which contains the content: 'web: python app.py'.
 
-Now that all files are in place add everything to GitHub, using the previously mentioned git add and git commit.
+Do not forget to add the two files to GitHub, using the previously mentioned git add and git commit.
+
+Now that all files are in place the content can be pushed to Heroku by entering 'git push heroku master' to the terminal.
+To run the application with Heroku enter 'heroku ps:scale web=1' to the terminal. 
+
+For the free version only one dyno can be used. 
+Dynos are isolated, virtualized Linux containers that are designed to execute code based on a user-specified command.
+In this case the web dyno is used. Web dynos are of the "web" process type that is defined in the previously generated Procfile. Only web dynos recieve HTTP traffic from routers.
+
+When this command has run succesfully the sentence 'Scaling dynos... done, now running web at 1:Free' will appear.
+
+The only thing left to do is to specify the IP and port by adding them as configuration variables in Heroku.
+1. Login to Heroku and go to the app
+2. select the Settings button from the navigation
+3. Go to the section 'Config Vars' and click the Add-button
+    a. set the Key to 'IP'. Set the value of IP to 0.0.0.0
+    b. set the Key to 'PORT'. Set the value of PORT to 5000
+
+Now that it is all setup click the button 'Open app' and the app is deployed.
+
+
+
+### Acknowledgements
+For the basic setup of the environment of the app and its documentation the video's from Code Institute were used "Putting The Basics in Place" (Mini Project)
+and the Heroku site for a more detailed explanation of some terminology used by Heroku.
