@@ -43,3 +43,25 @@ that would allow to push changes (using Git) to update the application at any gi
 To check if the newly created app is connected enter 'heroku apps' in the terminal. Underneath your e-mail address a list of apps will be listed.
 For this particular app 'the-reading-list (eu)' is shown.
 
+As we have already created a Git repository by using the Code Institute template, 
+the next step is to add the files needed for this app to the repository by entering:
+1. '$ git add .' in the terminal,
+2. followed by a '$ git commit -m "message of choice"'
+
+To associate the Heroku app as the master branch enter:
+$ heroku git:remote -a the-reading_list
+
+When you push to Heroku at this point it will fail, because two additional files are needed to succesfully deploy to Heroku:
+1. requirements.txt : the requirements text file will contain a list of the application that are required for Heroku to run the application.
+To create this file enter 'pip3 freeze --local>requirements.txt' in the terminal. A file is then generated and contains the underlining content:
+
+Click==7.0
+Flask==1.1.1
+itsdangerous==1.1.0
+Werkzeug==0.16.0
+
+2. Procfile (note that there isn't an extension) : the Procfile is an instruction to Heroku as to which file is used as our entry point at the application.
+In other words, which file is used to call the application and run it. To create a Procfile enter 'echo web: python app.py > Procfile'.
+A file is created which contains the content: 'web: python app.py'.
+
+Now that all files are in place add everything to GitHub, using the previously mentioned git add and git commit.
