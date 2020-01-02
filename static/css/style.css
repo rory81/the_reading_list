@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700|Pacifico:100,200,300,400,500,600,700|Satisfy');
+
+
+.banner{
+    min-height: 100px;
+    border-style: solid;
+    border:3px solid red;
+    background-color: #33CCFF;
+    padding: 0;
+}
+
+.row{
+    margin-bottom: 0px;
+}
+
+.title-logo{
+    color:white;
+}
+
+
+.title_line1, .title_line3{
+    font-family: "Roboto", sans-serif;
+        font-size: 25px;
+}
+
+.title_line2{
+    font-family: 'Satisfy', cursive;
+    padding-left: 30px;
+    font-size: 30px;
+}
+
+.title_line3{
+    font-family: "Roboto", sans-serif;
+    padding-left: 110px;
+}
+
+.picture-logo{
+    background:  url("https://d30c324b-118e-49ee-8117-3d7b6bd92ee2.ws-eu01.gitpod.io/files/download/?id=9dfa5710-1989-4e75-a8a9-10521885f4f3");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    max-width: 100%;
+}
