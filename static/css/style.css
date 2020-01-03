@@ -18,7 +18,7 @@
 
 .title_line1, .title_line3{
     font-family: "Roboto", sans-serif;
-        font-size: 25px;
+    font-size: 25px;
 }
 
 .title_line2{
@@ -35,6 +35,19 @@
 .picture-logo img{
     max-width: 60%;
     float: right;
+}
+
+/*NAVIGATION*/
+.nav-wrapper a{
+    color: #33CCFF;
+}
+nav{
+    background-color: white;
+}
+
+nav ul a, .register{
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
 }
 
 
