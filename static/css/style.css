@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700|Pacifico:100,200,300,400,500,600,700|Satisfy');
 
 
+/*HEADER*/
 .banner{
     min-height: 100px;
-    border-style: solid;
-    border:3px solid red;
     background-color: #33CCFF;
     padding: 0;
 }
@@ -16,7 +15,6 @@
 .title-logo{
     color:white;
 }
-
 
 .title_line1, .title_line3{
     font-family: "Roboto", sans-serif;
@@ -34,10 +32,72 @@
     padding-left: 110px;
 }
 
-.picture-logo{
-    background:  url("https://d30c324b-118e-49ee-8117-3d7b6bd92ee2.ws-eu01.gitpod.io/files/download/?id=9dfa5710-1989-4e75-a8a9-10521885f4f3");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    max-width: 100%;
+.picture-logo img{
+    max-width: 60%;
+    float: right;
+}
+
+
+/*MEDIA QUERIES*/
+
+@media (min-width:576px) {
+    .title_line1, .title_line3{
+        font-size: 35px;
+}
+
+.title_line2{
+    padding-left: 50px;
+    font-size: 40px;
+}
+
+.title_line3{
+    padding-left: 160px;
+}
+
+.picture-logo img{
+    max-width: 50%;
+}
+}
+
+@media (min-width:768px) {
+
+.picture-logo img{
+    max-width: 40%;
+}
+}
+
+@media (min-width:1024px) {
+    .title_line1{
+        padding-left: 60px;
+}
+
+.title_line2{
+    padding-left: 100px;
+}
+
+.title_line3{
+    padding-left: 200px;
+}
+
+.picture-logo img{
+    max-width: 30%;
+    margin-right: 100px;
+}
+ 
+}
+
+@media (min-width:1206px) {
+
+.picture-logo img{
+    max-width: 25%;
+}
+ 
+}
+
+@media (min-width:1459px) {
+
+.picture-logo img{
+    max-width: 20%;
+}
+
 }
