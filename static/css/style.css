@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700|Pacifico:100,200,300,400,500,600,700|Satisfy');
 
+body{
+    margin: 0;
+    padding: 0;
+}
+
 
 /*HEADER*/
 .banner{
@@ -37,7 +42,7 @@
     float: right;
 }
 
-/*NAVIGATION*/
+/*NAVIGATION & TITLE*/
 .nav-wrapper a, .nav-mobile,.sidenav li>a{
     color: #33CCFF;
 }
@@ -50,7 +55,47 @@ nav ul a, .register{
     font-family: "Roboto", sans-serif;
 }
 
+h3{
+    font-weight: bold;
+    font-family: "Satisfy", cursive;
+}
 
+/*FORMS*/
+button.btn {
+    background-color:#33CCFF; 
+    color: white;
+    font-family: "Roboto", sans-serif;
+}
+    .btn:focus, .btn:hover {
+        background-color: white;
+   }
+   /* label focus color */
+   .input-field input:focus + label {
+     color:#33CCFF!important;
+     font-weight: bold;
+   }
+   /* label underline focus color */
+   .input-field input:focus {
+     border-bottom: 1px solid #33CCFF!important;
+     box-shadow: 0 1px 0 0 #33CCFF!important;
+   }
+   /* valid color */
+   .input-field input.valid {
+     border-bottom: 1px solid #33CCFF!important;
+     box-shadow: 0 1px 0 0 #33CCFF!important;
+   }
+   /* invalid color */
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid red!important;
+     box-shadow: 0 1px 0 0 red!important;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #33CCFF!important;
+   }
+
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
 /*MEDIA QUERIES*/
 
 @media (min-width:576px) {
