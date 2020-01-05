@@ -122,10 +122,14 @@ button.btn {
 .picture-logo img{
     max-width: 40%;
 }
+
+h3.title{
+    font-size: 32px;
+}
 }
 
 @media (min-width:1024px) {
-    .title_line1{
+.title_line1{
         padding-left: 60px;
 }
 
@@ -141,7 +145,10 @@ button.btn {
     max-width: 30%;
     margin-right: 100px;
 }
- 
+
+h3.title{
+    font-size: 38px;
+}
 }
 
 @media (min-width:1206px) {
