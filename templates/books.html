@@ -1,15 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="row no-gutters col-12">
 	{% for book in books %}
-        {% if book.genre == 'Fantasy' %}
-            {{book.title}}
-            {{book.author}}
-            {{book.genre}}
-            {{book.series}}
-            {{book.published}}
-            {{book.amazon}}
-            {{book.description}}
-            {{book.picture}}
-        {% endif %}
+	<div class="col-4 col-md-3 book-picture">
+		<a href="#" class="img-holder">
+			<img src="{{book.picture}}" alt="{{book.title}}">
+                    </a>
+	</div>
+	<div class="col-6 col-md-3 book-content">
+		<div class="row no-gutters">
+			<strong>{{book.title}}</strong>
+		</div>
+		<div class="row no-gutters">
+			{{book.series}}
+		</div>
+		<div class="row no-gutters mt-2">
+			<strong><i>{{book.author}}</i></strong>
+		</div>
+		<div class="row no-gutters mt-2">
+			{{book.genre}}
+		</div>
+
+		<div class="row no-gutters mt-2">
+			<i>Published: {{book.published}}</i>
+		</div>
+		<div class="row no-gutters mt-2">
+			<a href="{{book.amazon}}" alt="link to amazon">Buy on Amazon.com</a>
+		</div>
+	</div>
+	<div class="col-2 col-md-3 text-center book-rating">
+		<p><strong>Rating</strong></p>
+	</div>
+	<div class="col-md-3 d-none d-sm-block book-description">
+		<div class="row no-gutters">
+			<p><strong>Book description</strong></p>
+			{{book.description}}
+		</div>
+	</div>
 	{% endfor %}
+</div>
 {% endblock %}

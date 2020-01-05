@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for genre in genres %}
+        {% if genre.genre_name == book.genre %}
+            <option value="{{genre.genre_name}}" selected>{{genre.genre_name}}</option>
+        {%  endif %}
+    {% endfor %}
+{% endblock %}
