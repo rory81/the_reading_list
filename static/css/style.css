@@ -38,7 +38,7 @@
 }
 
 /*NAVIGATION*/
-.nav-wrapper a{
+.nav-wrapper a, .nav-mobile,.sidenav li>a{
     color: #33CCFF;
 }
 nav{
