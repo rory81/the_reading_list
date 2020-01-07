@@ -42,10 +42,17 @@ def insert_user():
     return redirect(url_for('get_users'))
 
 
-@app.route('/insert_book')
-def insert_book():
-    return render_template("addbook.html", books=mongo.db.books.find(),
+@app.route('/add_book')
+def add_book():
+    return render_template('addbook.html', books=mongo.db.books.find(),
                            genres=mongo.db.genres.find())
+
+
+@app.route('/insert_book', methods=['POST'])
+def insert_book():
+    books = mongo.db.books
+    books.insert_one(request.form.to_dict())
+    return redirect(url_for('get_books'))
 
 
 if __name__ == '__main__':

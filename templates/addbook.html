@@ -2,11 +2,11 @@
 {% block content %}
 <div class="row no-gutters col-12 mx-auto mt-5">
 	<h3 class="title mx-auto">Add a Book</h3>
-<!--<a href="#" class="material-icons prefix right edit_icon">create</a> -->
+	<!--<a href="#" class="material-icons prefix right edit_icon">create</a> -->
 
 </div>
 <div class="row mt-4">
-	<form class="form_book col s12">
+	<form action="{{url_for('insert_book')}}" method="POST" class="form_book col s12">
 		<div class="row">
 			<div class="input-field col s12">
 				<i class="material-icons prefix">import_contacts</i>
@@ -68,6 +68,7 @@
 				<label for="picture">Picture*</label>
 			</div>
 		</div>
+
 		<button class="btn right" type="submit">Add Book
             <i class="material-icons prefix">add_box</i>
         </button>
