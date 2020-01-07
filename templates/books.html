@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row no-gutters col-12">
+<div class="row no-gutters col-12 mx-auto mt-5">
+	<h3 class="title mx-auto">The Collection of Books</h3>
+</div>
+<div class="row no-gutters col-12 mt-3">
 	{% for book in books %}
 	<div class="col-4 col-md-3 book-picture">
 		<a href="#" class="img-holder">
@@ -11,21 +14,21 @@
 		<div class="row no-gutters">
 			<strong>{{book.title}}</strong>
 		</div>
-		<div class="row no-gutters">
+		<div class="row no-gutters row_series">
 			{{book.series}}
 		</div>
-		<div class="row no-gutters mt-2">
+		<div class="row no-gutters row_author mt-2">
 			<strong><i>{{book.author}}</i></strong>
 		</div>
-		<div class="row no-gutters mt-2">
+		<div class="row no-gutters row_genre mt-2">
 			{{book.genre}}
 		</div>
 
-		<div class="row no-gutters mt-2">
+		<div class="row no-gutters row-published mt-2">
 			<i>Published: {{book.published}}</i>
 		</div>
-		<div class="row no-gutters mt-2">
-			<a href="{{book.amazon}}" alt="link to amazon">Buy on Amazon.com</a>
+		<div class="row no-gutters row_amazon mt-2">
+			<a href="{{book.amazon}}" target="_blank" alt="link to amazon">Buy on Amazon.com</a>
 		</div>
 	</div>
 	<div class="col-2 col-md-3 text-center book-rating">

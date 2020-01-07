@@ -154,6 +154,10 @@ h3.title{
     font-size: 32px;
 }
 
+.img-holder img {
+    max-width: 90%;
+    max-height: 90%;
+}
 }
 
 @media (min-width:1024px) {
@@ -177,14 +181,28 @@ h3.title{
 h3.title{
     font-size: 38px;
 }
+
+.img-holder img {
+    max-width: 80%;
+    max-height: 80%;
 }
+}
+
 
 @media (min-width:1206px) {
 
 .picture-logo img{
     max-width: 25%;
 }
- 
+
+.row_series, .row_genre{
+    padding-top: 10px;
+}
+
+.row_author, .row_amazon{
+    padding-top: 25px;
+}
+
 }
 
 @media (min-width:1459px) {
