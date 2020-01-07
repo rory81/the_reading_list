@@ -42,6 +42,12 @@ def insert_user():
     return redirect(url_for('get_users'))
 
 
+@app.route('/insert_book')
+def insert_book():
+    return render_template("addbook.html", books=mongo.db.books.find(),
+                           genres=mongo.db.genres.find())
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=os.environ.get('PORT'),

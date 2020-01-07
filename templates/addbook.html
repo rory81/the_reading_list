@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row no-gutters col-12 mx-auto mt-5">
+	<h3 class="title mx-auto">Add a Book</h3>
+<!--<a href="#" class="material-icons prefix right edit_icon">create</a> -->
+
+</div>
+<div class="row mt-4">
+	<form class="form_book col s12">
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">import_contacts</i>
+				<input id="title" type="text" name="title" class="validate" required>
+				<label for="title">Title*</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">account_box</i>
+				<input id="author" type="text" name="author" class="validate" required>
+				<label for="author">Author*</label>
+			</div>
+		</div>
+		<div class="row">
+
+			<div class="input-field col s12">
+				<i class="material-icons prefix">art_track</i>
+				<select id="genre" name="genre_name">
+                        <option value="" disabled selected>Choose Genre*</option>
+                    {% for genre in genres%}
+                        <option>{{genre.genre_name}}</option>
+                    {% endfor %}
+                </select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">linear_scale</i>
+				<input id="series" type="text" name="series" class="validate" required>
+				<label for="series">Part of serie*</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">date_range</i>
+				<input id="published" type="datetime" name="published" class="validate">
+				<label for="published">Published*</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">public</i>
+				<input id="amazon" type="text" name="amazon" class="validate" required>
+				<label for="amazon">Amazon Link*</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">library_books</i>
+				<input id="description" type="text" name="description" class="validate" required>
+				<label for="description">Book Description*</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">add_a_photo</i>
+				<input id="picture" type="url" name="picture" class="validate" required>
+				<label for="picture">Picture*</label>
+			</div>
+		</div>
+		<button class="btn right" type="submit">Add Book
+            <i class="material-icons prefix">add_box</i>
+        </button>
+	</form>
+</div>
+
+
+{% endblock %}
