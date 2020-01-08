@@ -79,7 +79,7 @@ hr{
     max-height: 100%;
 }
 
-.book-content, .book-picture, .book-rating, .book-description{
+.book-content, .book-picture, .book_rating, .book_description{
     margin-top: 50px;
 }
 
@@ -124,14 +124,12 @@ button.btn {
     margin: 0px 30px!important;
 }
 
-.dropdown-content li>span{
+.dropdown-content li>span, .select-wrapper input.select-dropdown{
     color:black;
-}
-
-.select-wrapper input.select-dropdown{
     font-family: "Roboto", sans-serif;
     font-size: 14px;
 }
+
 
 /*a.edit_icon{
     color:black;
@@ -174,12 +172,22 @@ h3.title{
     max-width: 90%;
     max-height: 90%;
 }
+
+.row_title, .row_description{
+    font-size: 18px;
+}
+
+.row_author{
+    font-size: 16px;
+}
 }
 
 @media (min-width:1024px) {
 .title_line1{
         padding-left: 60px;
 }
+
+
 
 .title_line2{
     padding-left: 100px;
