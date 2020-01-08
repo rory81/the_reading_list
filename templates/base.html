@@ -36,7 +36,7 @@
 		</div>
 		<nav>
 			<div class="nav-wrapper">
-				<a href="{{url_for('get_registered')}}"  class="register right mr-5">Register/Login</a>
+				<a href="{{url_for('get_registered')}}" class="register right mr-5">Register/Login</a>
 				<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul id="nav-mobile" class="left ml-3 hide-on-med-and-down">
 					<li><a href="#">Home</a></li>
@@ -70,9 +70,10 @@
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-    $('.sidenav').sidenav();
-    $('select').formSelect();
-  });
+            $('.sidenav').sidenav();
+            $('select').formSelect();
+            $('.datepicker').datepicker({format:'dd-mm-yyyy'});
+        });
 	</script>
 </body>
 
