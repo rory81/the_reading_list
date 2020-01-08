@@ -35,6 +35,11 @@ def get_registered():
     return render_template('register.html', users=mongo.db.users.find())
 
 
+@app.route('/login')
+def login():
+    return render_template('login.html', users=mongo.db.users.find())
+
+
 @app.route('/insert_user', methods=['POST'])
 def insert_user():
     users = mongo.db.users

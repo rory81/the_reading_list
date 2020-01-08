@@ -25,13 +25,13 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<i class="material-icons prefix">enhanced_encryption</i>
+				<i class="material-icons prefix">https</i>
 				<input id="password" type="password" name="password" class="validate" required>
 				<label for="password">Password*</label>
 			</div>
 		</div>
 		<div class="row no-gutters col-6">
-			<a href="#" alt="Login if you are already registered">Already a user? You can login here!</a>
+			<a href="{{url_for('login')}}" alt="Login if you are already registered">Already a user? You can login here!</a>
 		</div>
 		<button class="btn right" type="submit">Create
             <i class="material-icons prefix">add_box</i>
