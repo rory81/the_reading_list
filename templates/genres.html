@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-	{% for genre in genres %}
-        {{genre.genre_name}}
-	{% endfor %}
+                    {% for genre in genres %}
+                        {% for book in books %}
+                            {{book.genre}}
+                            {{book.title}}
+                        {% endfor %}
+                    {% endfor %}
 {% endblock %}
