@@ -87,6 +87,14 @@ hr{
     padding-left: 20px!important;
 }
 
+.row_title, .row_description{
+    font-size: 16px;
+}
+
+.row_author{
+    font-size: 14px;
+}
+
 /*FORMS*/
 button.btn {
     background-color:#33CCFF; 
