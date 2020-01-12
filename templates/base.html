@@ -40,14 +40,14 @@
 				<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul id="nav-mobile" class="left ml-3 hide-on-med-and-down">
 					<li><a href="#">Home</a></li>
-					<li><a href="#">Genres</a></li>
+					<li><a href="{{url_for('get_genres')}}">Genres</a></li>
 					<li><a href="{{url_for('get_books')}}">Books</a></li>
 					<li><a href="{{url_for('add_book')}}">Add a Book</a></li>
 
 				</ul>
 				<ul class="sidenav" id="mobile-nav">
 					<li><a href="#">Home</a></li>
-					<li><a href="#">Genres</a></li>
+					<li><a href="{{url_for('get_genres')}}">Genres</a></li>
 					<li><a href="{{url_for('get_books')}}">Books</a></li>
 					<li><a href="{{url_for('add_book')}}">Add a Book</a></li>
 

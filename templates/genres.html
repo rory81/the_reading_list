@@ -1,9 +1,54 @@
 {% extends 'base.html' %}
 {% block content %}
-                    {% for genre in genres %}
-                        {% for book in books %}
-                            {{book.genre}}
-                            {{book.title}}
-                        {% endfor %}
-                    {% endfor %}
+
+{% for genre in genres %}
+<div class="row no-gutters col-12 mx-auto mt-5">
+	<h3 class="title mx-auto">The Collection of Books - {{ genre.genre_name }}</h3>
+</div>
+<ul>
+	{% for book in books %}
+	{% if book.genre_name == genre.genre_name %}
+	<div class="row no-gutters col-12 mt-3">
+		<div class="col-4 col-md-3 book-picture">
+			<a href="#" class="img-holder">
+				<img src="{{book.picture}}" alt="{{book.title}}">
+                    </a>
+		</div>
+		<div class="col-6 col-md-3 book-content">
+			<div class="row no-gutters row_title">
+				<strong>{{book.title}}</strong>
+			</div>
+			<div class="row no-gutters row_series">
+				{{book.series}}
+			</div>
+			<div class="row no-gutters row_author mt-2">
+				<strong><i>{{book.author}}</i></strong>
+			</div>
+			<div class="row no-gutters row_genre mt-2">
+				{{book.genre_name}}
+			</div>
+
+			<div class="row no-gutters row_published mt-2">
+				<i>Published: {{book.published}}</i>
+			</div>
+			<div class="row no-gutters row_amazon mt-2">
+				<a href="{{book.amazon}}" target="_blank" alt="link to amazon">Buy on Amazon.com</a>
+			</div>
+		</div>
+		<div class="col-2 col-md-3 text-center book_rating">
+			<p><strong>Rating</strong></p>
+		</div>
+		<div class="col-md-3 d-none d-sm-block book_description">
+			<div class="row no-gutters">
+				<p class="row_description"><strong>Book description</strong></p>
+				{{book.description}}
+			</div>
+		</div>
+	</div> {% endif %}
+	{% endfor %}
+</ul>
+{% endfor %}
+
+
+
 {% endblock %}

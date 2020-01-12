@@ -22,7 +22,8 @@ def get_books():
 
 @app.route('/get_genres')
 def get_genres():
-    return render_template('genres.html', genres=mongo.db.genres.find())
+    return render_template('genres.html', genres=mongo.db.genres.find(),
+                           books=list(mongo.db.books.find()))
 
 
 @app.route('/get_users')
