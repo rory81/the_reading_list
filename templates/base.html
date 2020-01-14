@@ -27,8 +27,8 @@
 
 						</div>
 					</div>
-					<a href="index.html" class="container-fluid col-6 picture-logo">
-						<img src="static/images/tree_with_books_small.png" alt="tree with books">
+					<a href="#" class="container-fluid col-6 picture-logo">
+						<img src="{{url_for('static', filename='images/tree_with_books_small.png')}}" alt="tree with books">
                     </a>
 
 				</div>
@@ -72,7 +72,7 @@
 		$(document).ready(function(){
             $('.sidenav').sidenav();
             $('select').formSelect();
-            $('.datepicker').datepicker({format:'dd-mm-yyyy'});
+            $('.datepicker').datepicker({format:'mm-dd-yyyy'});
         });
 	</script>
 </body>

@@ -20,6 +20,33 @@ def get_books():
     return render_template("books.html", books=mongo.db.books.find())
 
 
+@app.route('/edit_book/<book_id>')
+def edit_book(book_id):
+    the_book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+    all_genres = mongo.db.genres.find()
+    return render_template("editbooks.html", book=the_book,
+                           genres=all_genres)
+
+
+@app.route('/update_book/<book_id>', methods=['POST'])
+def update_book(book_id):
+    books = mongo.db.books
+    books.update(
+        {'_id': ObjectId(book_id)},
+        {
+            'title': request.form.get('title'),
+            'author': request.form.get('author'),
+            'genre_name': request.form.get('genre_name'),
+            'series': request.form.get('series'),
+            'published': request.form.get('published'),
+            'amazon': request.form.get('amazon'),
+            'description': request.form.get('description'),
+            'picture': request.form.get('picture')
+        }
+    )
+    return redirect(url_for('get_books'))
+
+
 @app.route('/get_genres')
 def get_genres():
     return render_template('genres.html', genres=mongo.db.genres.find(),
