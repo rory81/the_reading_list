@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row no-gutters col-12 mx-auto mt-5">
+	<h3 class="title mx-auto">{{book.title}}</h3>
+</div>
+<div class="row no-gutters col-12 mt-5">
+	<div class="col-12 single_book_picture">
+		<a href="#">
+			<img src="{{book.picture}}" alt="{{book.title}}">
+                    </a>
+	</div>
+	<div class="col-12" style="border:2px solid red">
+		<a href="{{url_for('edit_book', book_id=book._id)}}" class="material-icons edit_icon">create</a>
+		<a href="{{url_for('delete_book', book_id=book._id)}}" class="material-icons delete_icon">delete</a>
+	</div>
+
+</div>
+
+{% endblock %}

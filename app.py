@@ -28,6 +28,12 @@ def edit_book(book_id):
                            genres=all_genres)
 
 
+@app.route('/book/<book_id>')
+def book(book_id):
+    the_book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+    return render_template("per_book.html", book=the_book)
+
+
 @app.route('/update_book/<book_id>', methods=['POST'])
 def update_book(book_id):
     books = mongo.db.books
@@ -44,6 +50,12 @@ def update_book(book_id):
             'picture': request.form.get('picture')
         }
     )
+    return redirect(url_for('get_books'))
+
+
+@app.route('/delete_book/<book_id>')
+def delete_book(book_id):
+    mongo.db.books.remove({'_id': ObjectId(book_id)})
     return redirect(url_for('get_books'))
 
 
