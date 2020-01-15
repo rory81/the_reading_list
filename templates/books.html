@@ -12,7 +12,9 @@
 	</div>
 	<div class="col-6 col-md-3 book-content">
 		<div class="row no-gutters row_title">
-			<strong>{{book.title}}</strong>
+			<a href="{{url_for('book', book_id=book._id)}}">
+				<strong>{{book.title}}</strong>
+			</a>
 		</div>
 		<div class="row no-gutters row_series">
 			{{book.series}}

@@ -57,9 +57,10 @@ nav{
     background-color: white;
 }
 
-nav ul a, .register{
+nav ul a, .register, .row_title a{
     font-weight: bold;
     font-family: "Roboto", sans-serif;
+    color: black;
 }
 
 h3, h4{
@@ -103,8 +104,38 @@ hr{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 50%;
+  height: 250px;
 }
+
+/*STAR RATING SYSTEM*/
+        .star{
+          color: goldenrod;
+          font-size: 2.0rem;
+          padding: 0 1rem; /* space out the stars */
+        }
+        .star::before{
+          content: '\2606';    /* star outline */
+          cursor: pointer;
+        }
+        .star.rated::before{
+          /* the style for a selected star */
+          content: '\2605';  /* filled star */
+        }
+        
+        .stars{
+            counter-reset: rateme 0;   
+            font-size: 2.0rem;
+            font-weight: 900;
+        }
+        .star.rated{
+            counter-increment: rateme 1;
+        }
+        .stars::after{
+            content: counter(rateme) '/5';
+            font-family: "Roboto", sans-serif;
+            visibility: hidden;
+            
+        }
 
 
 /*FORMS*/
@@ -153,7 +184,7 @@ a.edit_icon, a.delete_icon{
   color:black;
   position: relative;
   padding-left: 15px;
-  left: 40%;
+  left: 35%;
 }
 
 
@@ -177,6 +208,7 @@ a.edit_icon, a.delete_icon{
 .picture-logo img{
     max-width: 50%;
 }
+
 }
 
 @media (min-width:768px) {
@@ -200,6 +232,9 @@ h3.title{
 
 .row_author{
     font-size: 16px;
+}
+a.edit_icon, a.delete_icon{
+  left: 43%;
 }
 }
 
@@ -230,6 +265,10 @@ h3.title{
 .img-holder img {
     max-width: 80%;
     max-height: 80%;
+}
+
+a.edit_icon, a.delete_icon{
+  left: 45%;
 }
 }
 

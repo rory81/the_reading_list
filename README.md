@@ -127,3 +127,11 @@ Now that it is all setup click the button 'Open app' and the app is deployed.
 ### Acknowledgements
 For the basic setup of the environment of the app and its documentation the video's from Code Institute were used "Putting The Basics in Place" (Mini Project)
 and the Heroku site for a more detailed explanation of some terminology used by Heroku.
+
+for educational purposes
+
+picture: https://www.kindpng.com/downpng/JRRJib_vector-knowledge-color-tree-illustration-book-reading-book/
+
+https://www.w3schools.com/
+
+https://gist.github.com/prof3ssorSt3v3/29e623d441e8174ffaef17741a1bba14 (star rating system)
