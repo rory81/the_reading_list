@@ -88,6 +88,15 @@ hr{
     margin-top: 50px;
 }
 
+.star_icon{
+    float:left;
+    color: #FFDF00;
+}
+
+.row.no-gutters.col-12.mt-3 > div:nth-child(3) > p > strong{
+    font-size: 16px;
+}
+
 .book-content{
     padding-left: 20px!important;
 }
@@ -111,7 +120,7 @@ hr{
         .star{
           color: goldenrod;
           font-size: 2.0rem;
-          padding: 0 1rem; /* space out the stars */
+          padding: 0 0.7rem; /* space out the stars */
         }
         .star::before{
           content: '\2606';    /* star outline */

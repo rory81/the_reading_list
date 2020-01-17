@@ -33,10 +33,11 @@
 			<a href="{{book.amazon}}" target="_blank" alt="link to amazon">Buy on Amazon.com</a>
 		</div>
 	</div>
-	<div class="col-2 col-md-3 text-center book_rating">
-		<p><strong>Rating</strong></p>
+	<div class="col-2 book_rating">
+		<i class="material-icons star_icon">star</i>
+		<p><strong>{{book.rating}}</strong></p>
 	</div>
-	<div class="col-md-3 d-none d-sm-block book_description">
+	<div class="col-md-4 d-none d-sm-block book_description">
 		<div class="row no-gutters">
 			<p class="row_description"><strong>Book description</strong></p>
 			{{book.description}}

@@ -34,12 +34,20 @@
 				</div>
 			</div>
 		</div>
+		<ul id="dropdown1" class="dropdown-content">
+			<li><a href="#!">one</a></li>
+			<li><a href="#!">two</a></li>
+			<li class="divider"></li>
+			<li><a href="#!">three</a></li>
+		</ul>
 		<nav>
 			<div class="nav-wrapper">
 				<a href="{{url_for('get_registered')}}" class="register right mr-5">Register/Login</a>
 				<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul id="nav-mobile" class="left ml-3 hide-on-med-and-down">
 					<li><a href="#">Home</a></li>
+					<li><a class="dropdown-trigger" href="{{url_for('get_genres')}}"
+							data-target="dropdown1">Genres<i class="material-icons right">arrow_drop_down</i></a></li>
 					<li><a href="{{url_for('get_genres')}}">Genres</a></li>
 					<li><a href="{{url_for('get_books')}}">Books</a></li>
 					<li><a href="{{url_for('add_book')}}">Add a Book</a></li>
@@ -47,6 +55,8 @@
 				</ul>
 				<ul class="sidenav" id="mobile-nav">
 					<li><a href="#">Home</a></li>
+					<li><a class="dropdown-trigger" href="{{url_for('get_genres')}}"
+							data-target="dropdown1">Genres<i class="material-icons right">arrow_drop_down</i></a></li>
 					<li><a href="{{url_for('get_genres')}}">Genres</a></li>
 					<li><a href="{{url_for('get_books')}}">Books</a></li>
 					<li><a href="{{url_for('add_book')}}">Add a Book</a></li>
@@ -73,6 +83,7 @@
             $('.sidenav').sidenav();
             $('select').formSelect();
             $('.datepicker').datepicker({format:'mm-dd-yyyy'});
+            $(".dropdown-trigger").dropdown();
         });
         
         //initial setup star rating 
