@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row no-gutters col-12 mx-auto mt-5">
+<div class="row col-12 mx-auto mt-5">
 	<h3 class="title mx-auto">Welcome Back!</h3>
 </div>
-<div class="row mt-4">
+<div class="row col s9 mt-4">
 	<form class="col s12">
 		<div class="row">
 			<div class="input-field col s12">
@@ -19,10 +19,10 @@
 				<label for="password">Password*</label>
 			</div>
 		</div>
-		<div class="row no-gutters col-6">
+		<div class="row no-gutters col-12">
 			<a href="{{url_for('get_registered')}}" alt="Register here if you are new">New here? Create an account here!</a>
 		</div>
-		<button class="btn right" type="submit">Login
+		<button class="btn right mt-4" type="submit">Login
             <i class="material-icons prefix">local_library</i>
         </button>
 	</form>

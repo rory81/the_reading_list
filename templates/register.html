@@ -3,15 +3,15 @@
 <div class="row no-gutters col-12 mx-auto mt-5">
 	<h3 class="title mx-auto">Create Account</h3>
 </div>
-<div class="row mt-4">
+<div class="row col s9 mt-4">
 	<form action="{{url_for('insert_user')}}" method="POST" class="col s12">
 		<div class="row">
-			<div class="input-field col s6">
+			<div class="input-field col s12">
 				<i class="material-icons prefix">account_box</i>
 				<input id="first" type="text" name="first" class="validate" required>
 				<label for="first">First Name*</label>
 			</div>
-			<div class="input-field col s6">
+			<div class="input-field col s12">
 				<input id="last" type="text" name="last" class="validate" required>
 				<label for="last">Last Name*</label>
 			</div>
@@ -30,10 +30,10 @@
 				<label for="password">Password*</label>
 			</div>
 		</div>
-		<div class="row no-gutters col-6">
+		<div class="row no-gutters col-12">
 			<a href="{{url_for('login')}}" alt="Login if you are already registered">Already a user? You can login here!</a>
 		</div>
-		<button class="btn right" type="submit">Create
+		<button class="btn right mt-4" type="submit">Create
             <i class="material-icons prefix">add_box</i>
         </button>
 	</form>
