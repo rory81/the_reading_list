@@ -10,13 +10,15 @@
 	{% if book.genre_name == genre.genre_name %}
 	<div class="row no-gutters col-12 mt-3">
 		<div class="col-4 col-md-3 book-picture">
-			<a href="#" class="img-holder">
+			<a href="{{url_for('book', book_id=book._id)}}" class="img-holder">
 				<img src="{{book.picture}}" alt="{{book.title}}">
                     </a>
 		</div>
 		<div class="col-6 col-md-3 book-content">
 			<div class="row no-gutters row_title">
-				<strong>{{book.title}}</strong>
+				<a href="{{url_for('book', book_id=book._id)}}">
+					<strong>{{book.title}}</strong>
+				</a>
 			</div>
 			<div class="row no-gutters row_series">
 				{{book.series}}
