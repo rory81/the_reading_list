@@ -94,13 +94,16 @@ When you push to Heroku at this point it will fail, because two additional files
 To create this file enter 'pip3 freeze --local>requirements.txt' in the terminal. A file is then generated and contains the underlining content:
 
 Click==7.0
+dnspython==1.16.0
 Flask==1.1.1
+Flask-PyMongo==2.3.0
 itsdangerous==1.1.0
+pymongo==3.10.0
 Werkzeug==0.16.0
 
 2. Procfile (note that there isn't an extension) : the Procfile is an instruction to Heroku as to which file is used as our entry point at the application.
 In other words, which file is used to call the application and run it. To create a Procfile enter 'echo web: python app.py > Procfile'.
-A file is created which contains the content: 'web: python app.py'.
+A file is created which contains the content: 'web: python3 app.py'.
 
 Do not forget to add the two files to GitHub, using the previously mentioned git add and git commit.
 
@@ -119,6 +122,7 @@ The only thing left to do is to specify the IP and port by adding them as config
 3. Go to the section 'Config Vars' and click the Add-button
     a. set the Key to 'IP'. Set the value of IP to 0.0.0.0
     b. set the Key to 'PORT'. Set the value of PORT to 5000
+    c. set the Key to 'MONGO_URI'. Set the value to mongodb+srv://rory81:<password>@myfirstcluster-nn45a.mongodb.net/<name_database>?retryWrites=true&w=majority
 
 Now that it is all setup click the button 'Open app' and the app is deployed.
 
