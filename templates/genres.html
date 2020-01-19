@@ -2,13 +2,19 @@
 {% block content %}
 
 {% for genre in genres %}
-<div class="row no-gutters col-12 text-align-center mt-5">
+<ul id="sidenav-1" class="sidenav sidenav-fixed hidden-sm-down">
+	<li><a class="subheader">Choose a different genre</a></li>
+	{% for genre in genres %}
+	<li><a href="#">{{ genre.genre_name }}</a></li>
+	{% endfor %}
+</ul>
+<div class="row no-gutters col-12 offset-1 text-align-center mt-5">
 	<h3 class="title mx-auto">The Collection of Books - {{ genre.genre_name }}</h3>
 </div>
 <ul>
 	{% for book in books %}
 	{% if book.genre_name == genre.genre_name %}
-	<div class="row no-gutters col-12 mt-3">
+	<div class="row no-gutters col-12 offset-2 mt-3">
 		<div class="col-4 col-md-3 book-picture">
 			<a href="{{url_for('book', book_id=book._id)}}" class="img-holder">
 				<img src="{{book.picture}}" alt="{{book.title}}">
@@ -37,7 +43,7 @@
 				<a href="{{book.amazon}}" target="_blank" alt="link to amazon">Buy on Amazon.com</a>
 			</div>
 		</div>
-		<div class="col-2 text-center book_rating">
+		<div class="col-1 text-center book_rating">
 			<i class="material-icons star_icon">star</i>
 			<p><strong>{{book.rating}}</strong></p>
 		</div>

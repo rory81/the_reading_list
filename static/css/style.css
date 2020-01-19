@@ -63,6 +63,14 @@ nav ul a, .register, .row_title a{
     color: black;
 }
 
+.row_title a{
+    font-size: 22px;
+}
+
+.sidenav.sidenav-fixed{
+    transform:translate(0px,229px)!important;
+}
+
 h3, h4{
     font-weight: bold;
     font-family: "Satisfy", cursive;
@@ -72,17 +80,13 @@ hr{
     border-top: 3px solid rgba(0,0,0,.1)!important;
 }
 
-.img-holder {
-  width: 100px;
-  height: 100px;
+.img-holder img {
+  width: 110px;
+  height: 170px;
   position: relative;
   overflow: hidden;
 }
 
-.img-holder img {
-    max-width: 100%;
-    max-height: 100%;
-}
 
 .book-content, .book-picture, .book_rating, .book_description{
     margin-top: 50px;
@@ -101,8 +105,8 @@ hr{
     padding-left: 20px!important;
 }
 
-.row_title, .row_description{
-    font-size: 16px;
+.row_title{
+    font-size: 22px;
 }
 
 .row_author{
@@ -114,6 +118,12 @@ hr{
   margin-left: auto;
   margin-right: auto;
   height: 250px;
+}
+
+.card-image img{
+    display: block;
+    width: 20%!important;
+    height: 20%;
 }
 
 /*STAR RATING SYSTEM*/
@@ -231,12 +241,12 @@ h3.title{
 }
 
 .img-holder img {
-    max-width: 90%;
-    max-height: 90%;
+    width: 150px;
+    height: 200px;
 }
 
-.row_title, .row_description{
-    font-size: 18px;
+.row_title{
+    font-size: 24px;
 }
 
 .row_author{
@@ -272,8 +282,8 @@ h3.title{
 }
 
 .img-holder img {
-    max-width: 80%;
-    max-height: 80%;
+    width: 150px;
+    height: 200px;
 }
 
 a.edit_icon, a.delete_icon{
@@ -298,10 +308,15 @@ a.edit_icon, a.delete_icon{
 
 }
 
+
 @media (min-width:1459px) {
 
 .picture-logo img{
     max-width: 20%;
 }
 
+.img-holder img {
+    width: 200px;
+    height: 300px;
+}
 }
