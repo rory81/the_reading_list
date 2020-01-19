@@ -1,8 +1,8 @@
-import os
-from flask import Flask, render_template, redirect, request, url_for
-from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from bson.objectid import ObjectId
+from flask_pymongo import PyMongo
+import os
+from flask import Flask, render_template, redirect, request, url_for, session, flash
 
 
 app = Flask(__name__)
@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = 'reading_list'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
-
+app.secret_key = "super secret key"
 
 mongo = PyMongo(app)
 
@@ -87,16 +87,51 @@ def get_books_per_genre():
                            books=list(mongo.db.books.find()))
 
 
-@app.route('/get_registered')
+@app.route('/get_registered', methods=['GET', 'POST'])
 def get_registered():
-    return render_template('register.html', users=mongo.db.users.find())
+    # Check if user is not logged in already
+    if 'user' in session:
+        flash('You are already sign in!')
+        return redirect(url_for('get_books'))
+    if request.method == 'POST':
+        form = request.form.to_dict()
+        # Check if the password and password1 actualy match
+        if form['password'] == form['password_2']:
+            # If so try to find the user in db
+            user = mongo.db.users.find_one({"email": form['email']})
+            if user:
+                flash(f"{form['email']} already exists!")
+                return redirect(url_for('get_registered'))
+            # If user does not exist register new user
+            else:
+                # Hash password
+                hash_pass = generate_password_hash(form['password'])
+                # Create new user with hashed password
+                mongo.db.users.insert_one(
+                    {
+                        'first': form['first'],
+                        'last': form['last'],
+                        'email': form['email'],
+                        'password': hash_pass
+                    }
+                )
+                # Check if user is actualy saved
+                user_in_db = mongo.db.users.find_one(
+                    {"email": form['email']})
+                if user_in_db:
+                    # Log user in (add to session)
+                    session['user'] = user_in_db['email']
+                    return redirect(url_for('get_books',
+                                            user=user_in_db['email']))
+                else:
+                    flash("There was a problem saving your profile")
+                    return redirect(url_for('get_registered'))
 
+        else:
+            flash("Warning! Passwords dont match!")
+            return redirect(url_for('get_registered'))
 
-@app.route('/insert_user', methods=['POST'])
-def insert_user():
-    users = mongo.db.users
-    users.insert_one(request.form.to_dict())
-    return redirect(url_for('get_users'))
+    return render_template("register.html")
 
 
 @app.route('/login')

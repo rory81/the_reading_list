@@ -4,7 +4,7 @@
 	<h3 class="title mx-auto">Create Account</h3>
 </div>
 <div class="row col s9 mt-4">
-	<form action="{{url_for('insert_user')}}" method="POST" class="col s12">
+	<form action="{{url_for('get_registered')}}" method="POST" class="col s12">
 		<div class="row">
 			<div class="input-field col s12">
 				<i class="material-icons prefix">account_box</i>
@@ -30,8 +30,16 @@
 				<label for="password">Password*</label>
 			</div>
 		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">https</i>
+				<input id="password_2" type="password" name="password_2" class="validate" required>
+				<label for="password_2">Re-enter Password*</label>
+			</div>
+		</div>
 		<div class="row no-gutters col-12">
-			<a href="{{url_for('login')}}" alt="Login if you are already registered">Already a user? You can login here!</a>
+			<a href="{{url_for('login')}}" alt="Login if you are already registered">Already a user? You can login
+				here!</a>
 		</div>
 		<button class="btn right mt-4" type="submit">Create
             <i class="material-icons prefix">add_box</i>

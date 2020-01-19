@@ -109,7 +109,7 @@ hr{
     font-size: 22px;
 }
 
-.row_author{
+.row_author, .row_description{
     font-size: 14px;
 }
 
@@ -249,7 +249,7 @@ h3.title{
     font-size: 24px;
 }
 
-.row_author{
+.row_author, .row_description{
     font-size: 16px;
 }
 a.edit_icon, a.delete_icon{

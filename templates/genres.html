@@ -23,7 +23,7 @@
 		<div class="col-6 col-md-3 book-content">
 			<div class="row no-gutters row_title">
 				<a href="{{url_for('book', book_id=book._id)}}">
-					<strong>{{book.title}}</strong>
+					<i>{{book.title}}</i>
 				</a>
 			</div>
 			<div class="row no-gutters row_series">
@@ -49,7 +49,7 @@
 		</div>
 		<div class="col-md-4 d-none d-sm-block book_description">
 			<div class="row no-gutters">
-				<p class="row_description"><strong>Book description</strong></p>
+				<p class="row_description"><strong><i>Book description</i></strong></p>
 				{{book.description}}
 			</div>
 		</div>
