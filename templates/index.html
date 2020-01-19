@@ -3,7 +3,7 @@
 
 {% for genre in genres %}
 <div class="row no-gutters col-12 text-align-center mt-5">
-	<h3 class="title mx-auto">The Collection of Books - {{ genre.genre_name }}</h3>
+	<h3 class="title">{{ genre.genre_name }}</h3>
 </div>
 <ul>
 	{% for book in books %}
@@ -15,14 +15,9 @@
 					<a href="{{url_for('book', book_id=book._id)}}" class="img-holder">
 						<img src="{{book.picture}}" alt="{{book.title}}">
                     </a>
-						<span class="card-title">Card Title</span>
-				</div>
-				<div class="card-content">
-					<p>I am a very simple card. I am good at containing small bits of information.
-						I am convenient because I require little markup to use effectively.</p>
 				</div>
 				<div class="card-action">
-					<a href="#">This is a link</a>
+					<a href="#">View More of this genre</a>
 				</div>
 			</div>
 		</div>
