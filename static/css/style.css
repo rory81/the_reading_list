@@ -209,7 +209,7 @@ button.btn.form {
      box-shadow: 0 1px 0 0 red!important;
    }
    /* icon prefix focus color */
-   .input-field .prefix.active {
+   .input-field .prefix {
      color: #33CCFF!important;
    }
 .form_book{
@@ -226,6 +226,14 @@ a.edit_icon, a.delete_icon{
   position: relative;
   padding-left: 15px;
   left: 35%;
+}
+
+.required{
+    color: darkgrey;
+}
+
+.sidenav.sidenav-fixed{
+    box-shadow: none!important;
 }
 
 
