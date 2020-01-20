@@ -59,7 +59,12 @@ The "MONGO_URI" is a link that is provided by MongoDB:
     a) Name= MONGO_URI
     b) Value= the link from step 4 with the correct password and database name
     c) repository= the workspace directory
-6. Stop and restart the workspace
+6. Use https://gitpod.io/environment-variables/ to set SECRET_KEY as an environment variable, needed to encode the session cookie
+    (used to see if a user is already logged in or not) 
+    a) Name= SECRET_KEY
+    b) Value= make it as complex as possible
+    c) repository= the workspace directory
+7. Stop and restart the workspace
 
 
 
@@ -139,3 +144,5 @@ picture: https://www.kindpng.com/downpng/JRRJib_vector-knowledge-color-tree-illu
 https://www.w3schools.com/
 
 https://gist.github.com/prof3ssorSt3v3/29e623d441e8174ffaef17741a1bba14 (star rating system)
+
+https://github.com/MiroslavSvec/DCD_lead (register/login/hashing password)

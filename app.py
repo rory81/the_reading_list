@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = 'reading_list'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
-app.secret_key = "super secret key"
+app.secret_key = os.getenv('SECRET_KEY', 'mongodb://localhost')
 
 mongo = PyMongo(app)
 
@@ -91,7 +91,7 @@ def get_books_per_genre():
 def get_registered():
     # Check if user is not logged in already
     if 'user' in session:
-        flash('You are already sign in!')
+        flash('You are already signed in!')
         return redirect(url_for('get_books'))
     if request.method == 'POST':
         form = request.form.to_dict()
@@ -121,7 +121,7 @@ def get_registered():
                 if user_in_db:
                     # Log user in (add to session)
                     session['user'] = user_in_db['email']
-                    return redirect(url_for('get_books',
+                    return redirect(url_for('profile',
                                             user=user_in_db['email']))
                 else:
                     flash("There was a problem saving your profile")
@@ -134,9 +134,58 @@ def get_registered():
     return render_template("register.html")
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET'])
 def login():
-    return render_template('login.html', users=mongo.db.users.find())
+    # Check if user is not logged in already
+    if 'user' in session:
+        user_in_db = mongo.db.users.find_one({"email": session['user']})
+        if user_in_db:
+            # If so redirect user to his profile
+            flash("You are logged in already!")
+            return redirect(url_for('profile', user=user_in_db['email']))
+    else:
+        # Render the page for user to be able to log in
+        return render_template("login.html")
+
+
+@app.route('/user_auth', methods=['POST'])
+def user_auth():
+    form = request.form.to_dict()
+    user_in_db = mongo.db.users.find_one({"email": form['email']})
+    # Check for user in databases
+    if user_in_db:
+        # If passwords match (hashed / real password)
+        if check_password_hash(user_in_db['password'], form['password']):
+            # Log user in (add to session)
+            session['user'] = form['email']
+            return redirect(url_for('profile', user=user_in_db['email']))
+        else:
+            flash("Wrong password or user name")
+            return redirect(url_for('login'))
+    else:
+        flash("No account found with that email address.")
+        return redirect(url_for('login'))
+
+
+@app.route('/logout')
+def logout():
+    # Clear the session
+    session.clear()
+    flash('You are logged out. Hope to see you soon!')
+    return redirect(url_for('get_home'))
+
+
+# Profile Page
+@app.route('/profile/<user>')
+def profile(user):
+    # Check if user is logged in
+    if 'user' in session:
+        # If so get the user and pass him to template for now
+        user_in_db = mongo.db.users.find_one({"email": user})
+        return render_template('profile.html', user=user_in_db)
+    else:
+        flash("You must be logged in to view a profile")
+        return redirect(url_for('get_home'))
 
 
 if __name__ == '__main__':

@@ -63,6 +63,10 @@ nav ul a, .register, .row_title a{
     color: black;
 }
 
+.logout{
+    font-family: "Roboto", sans-serif;
+}
+
 .row_title a{
     font-size: 22px;
 }
@@ -76,9 +80,6 @@ h3, h4{
     font-family: "Satisfy", cursive;
 }
 /*BOOKS*/
-hr{
-    border-top: 3px solid rgba(0,0,0,.1)!important;
-}
 
 .img-holder img {
   width: 110px;
@@ -126,6 +127,25 @@ hr{
     height: 20%;
 }
 
+button.btn.del {
+    background-color:transparent; 
+    color: tomato;
+    border: 1px solid tomato;
+    font-family: "Roboto", sans-serif;
+}
+    .btn.del:focus, .btn.del:hover {
+        background-color:red;
+        color: white;
+        border: white;
+   }
+
+       .btn.edit:focus, .btn.edit:hover {
+        background-color:white;
+        color: #5cb85c;
+        border: 1px #5cb85c solid;
+   }
+
+
 /*STAR RATING SYSTEM*/
         .star{
           color: goldenrod;
@@ -158,13 +178,15 @@ hr{
 
 
 /*FORMS*/
-button.btn {
+button.btn.form {
     background-color:#33CCFF; 
     color: white;
     font-family: "Roboto", sans-serif;
 }
-    .btn:focus, .btn:hover {
+    .btn.form:focus, .btn.form:hover {
         background-color: white;
+        color:#33CCFF;
+        border: 2px solid #33CCFF;
    }
    /* label focus color */
    .input-field input:focus + label {
