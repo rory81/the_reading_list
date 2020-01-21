@@ -71,6 +71,9 @@ nav ul a, .register, .row_title a{
     font-size: 22px;
 }
 
+.sidenav{
+    width:200px!important;
+}
 .sidenav.sidenav-fixed{
     transform:translate(0px,229px)!important;
 }
@@ -82,8 +85,8 @@ h3, h4{
 /*BOOKS*/
 
 .img-holder img {
-  width: 110px;
-  height: 170px;
+  width: 100px;
+  height: 160px;
   position: relative;
   overflow: hidden;
 }
