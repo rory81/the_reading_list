@@ -2,7 +2,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 import os
-from flask import Flask, render_template, redirect, request, url_for, session, flash
+from flask import Flask, render_template, redirect, request, \
+    url_for, session, flash
 
 
 app = Flask(__name__)
@@ -24,7 +25,8 @@ def get_home():
 
 @app.route('/get_books')
 def get_books():
-    return render_template("books.html", books=mongo.db.books.find())
+    return render_template("books.html", books=mongo.db.books.find(),
+                           genres=list(mongo.db.genres.find()))
 
 
 @app.route('/edit_book/<book_id>')
@@ -85,6 +87,12 @@ def delete_book(book_id):
 def get_books_per_genre():
     return render_template('genres.html', genres=mongo.db.genres.find(),
                            books=list(mongo.db.books.find()))
+
+
+@app.route('/genre/<genre_id>')
+def genre(genre_id):
+    the_genre = mongo.db.genres.find_one({"_id": ObjectId(genre_id)})
+    return render_template("genres.html", genre=the_genre)
 
 
 @app.route('/get_registered', methods=['GET', 'POST'])
