@@ -71,8 +71,8 @@ nav ul a, .register, .row_title a{
     font-size: 22px;
 }
 
-.sidenav.sidenav-fixed{
-    transform:translate(0px,229px)!important;
+.sidenav{
+    width:200px!important;
 }
 
 h3, h4{
@@ -82,8 +82,8 @@ h3, h4{
 /*BOOKS*/
 
 .img-holder img {
-  width: 110px;
-  height: 170px;
+  width: 100px;
+  height: 160px;
   position: relative;
   overflow: hidden;
 }
@@ -176,6 +176,15 @@ button.btn.del {
             
         }
 
+        .breadcrumb{
+            background-color: white!important;
+            color: #33CCFF;
+        }
+
+        .bread_head a{
+            color: grey;
+        }
+
 
 /*FORMS*/
 button.btn.form {
@@ -209,7 +218,7 @@ button.btn.form {
      box-shadow: 0 1px 0 0 red!important;
    }
    /* icon prefix focus color */
-   .input-field .prefix.active {
+   .input-field .prefix {
      color: #33CCFF!important;
    }
 .form_book{
@@ -227,6 +236,12 @@ a.edit_icon, a.delete_icon{
   padding-left: 15px;
   left: 35%;
 }
+
+.required{
+    color: darkgrey;
+}
+
+
 
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -277,6 +292,7 @@ h3.title{
 a.edit_icon, a.delete_icon{
   left: 43%;
 }
+
 }
 
 @media (min-width:1024px) {
@@ -311,6 +327,9 @@ h3.title{
 a.edit_icon, a.delete_icon{
   left: 45%;
 }
+.sidenav{
+    width:119px!important;
+}
 }
 
 
@@ -328,6 +347,14 @@ a.edit_icon, a.delete_icon{
     padding-top: 25px;
 }
 
+.genre_filter{
+    visibility: hidden;
+}
+
+.sidenav.sidenav-fixed{
+    transform:translate(0px,242px)!important;
+}
+
 }
 
 
@@ -340,5 +367,8 @@ a.edit_icon, a.delete_icon{
 .img-holder img {
     width: 200px;
     height: 300px;
+}
+.sidenav.sidenav-fixed{
+    transform:translate(0px,229px)!important;
 }
 }
