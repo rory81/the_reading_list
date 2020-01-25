@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row no-gutters">
-	<div class="input-field genre_filter col-6 col-md-3 s12 ml-4">
-		<select>
-                <option value="" disabled selected>Choose Genre*</option>
+	<form>
+		<div class="input-field genre_filter col-8 s12 ml-4">
+			<select id="genre_name" name="genre_name">
+                <option value="" disabled selected>Choose Genre</option>
                 {% for genre in genres%}
-                <option><a href="#">{{genre.genre_name}}</a></option>
+                <option value="{{genre.genre_name}}">{{genre.genre_name}}</option>
                 {% endfor %}
             </select>
-	</div>
-	<ul id="sidenav-1" class="sidenav sidenav-fixed d-none d-xl-block">
-		<li><a class="subheader">Genres</a></li>
-		{% for item in genres %}
-		<li><a href="#">{{ item.genre_name }}</a></li>
-		{% endfor %}
-	</ul>
+			<button class="btn form right mt-4" type="submit">Submit
+        </button>
+		</div>
+		<ul id="sidenav-1" class="sidenav sidenav-fixed d-none d-xl-block">
+			<li><a class="subheader">Genres</a></li>
+			{% for item in genres %}
+			<li><a href="{{url_for('get_books',limit=5,offset=0), results}}">{{ item.genre_name }}</a></li>
+			{% endfor %}
+		</ul>
+	</form>
 	<div class="col-12">
 		<div class="row no-gutters col-12 mx-auto mt-5">
 			<h3 class="title mx-auto">The Collection of Books</h3>
@@ -60,6 +64,12 @@
 				</div>
 			</div>
 			{% endfor %}
+		</div>
+		<div class="row no-gutters">
+			<div class="col text-center">
+				<a href="{{url_for('get_books',limit=5,offset=prv_url)}}" class="previous">&laquo; Previous</a>
+				<a href="{{url_for('get_books',limit=5,offset=next_url)}}" class="next">Next &raquo;</a>
+			</div>
 		</div>
 	</div>
 </div>
