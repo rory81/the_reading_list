@@ -74,6 +74,18 @@
 			</div>
 		</div>
 
+        		<div class="col s12">
+			<div class="stars text-center" data-rating="{{book.rating}}">
+				<h3 class="title">Add a rating</h3>
+				<span class="star">&nbsp;</span>
+				<span class="star">&nbsp;</span>
+				<span class="star">&nbsp;</span>
+				<span class="star">&nbsp;</span>
+				<span class="star">&nbsp;</span>
+				<input id="rating" type="number" name="rating" value="{{book.rating}}" readonly hidden>
+			</div>
+			</div>
+
 		<button class="btn form right md-2" type="submit">Update Book
             <i class="material-icons prefix">add_box</i>
         </button>

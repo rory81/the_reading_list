@@ -74,7 +74,8 @@ def update_book(book_id):
             'published': request.form.get('published'),
             'amazon': request.form.get('amazon'),
             'description': request.form.get('description'),
-            'picture': request.form.get('picture')
+            'picture': request.form.get('picture'),
+            'rating': request.form.get('rating')
         }
     )
     return redirect(url_for('get_books', limit=5, offset=0))
