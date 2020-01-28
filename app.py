@@ -28,23 +28,18 @@ def get_books(limit, offset):
     starting_point = list(books.find().sort('author'))
     end_point = starting_point[int(offset)]['author']
     upper_limit = books.count()
-    print(upper_limit)
     if (int(offset)+int(limit)) < upper_limit:
         next_url = str(int(offset)+int(limit))
     else:
         next_url = str(upper_limit-1)
-    print(next_url)
     if (int(offset)-int(limit)) > 0:
         prv_url = str(int(offset)-int(limit))
     else:
         prv_url = str(0)
-    print(prv_url)
     books = books.find({'author': {'$gte': end_point}}
                        ).sort('author').limit(int(limit))
     results = mongo.db.books.find({'genre_name':
                                    request.args.get('genre_name')})
-    for result in results:
-        print(result)
     return render_template('books.html',
                            books=books,
                            limit=limit,

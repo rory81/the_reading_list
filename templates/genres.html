@@ -1,48 +1,75 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row no-gutters col-12 mx-auto mt-5">
-	<h3 class="title mx-auto">The Collection of Books</h3>
-</div>
-<div class="row no-gutters col-12 mt-3">
-	{% for book in books %}
-	<div class="col-4 col-md-3 book-picture">
-		<a href="{{url_for('book', book_id=book._id)}}" class="img-holder">
-			<img src="{{book.picture}}" alt="{{book.title}}">
+<div class="row no-gutters">
+	<form action="{{url_for('get_books',limit=5,offset=0)}}" methods="GET">
+		<div class="input-field genre_filter col-8 s12 ml-4">
+			<select id="genre_name" name="genre_name">
+                {% for genre in genres%}
+                <option value="{{genre.genre_name}}">{{genre.genre_name}}</option>
+                {% endfor %}
+            </select>
+			<button class="btn form right mt-4" type="submit">Submit
+        </button>
+		</div>
+		<ul id="sidenav-1" class="sidenav sidenav-fixed d-none d-xl-block">
+			<li><a class="subheader">Genres</a></li>
+			{% for item in genres %}
+			<li><a href="{{url_for('get_books',limit=5,offset=0), results}}">{{ item.genre_name }}</a></li>
+			{% endfor %}
+		</ul>
+	</form>
+	<div class="col-12">
+		<div class="row no-gutters col-12 mx-auto mt-5">
+			<h3 class="title mx-auto">The Collection of Books</h3>
+		</div>
+		<div class="row no-gutters col-12 mt-3">
+			{% for result in results %}
+			<div class="col-4 col-md-3 book-picture">
+				<a href="{{url_for('book', book_id=result._id)}}" class="img-holder">
+					<img src="{{result.picture}}" alt="{{result.title}}">
                     </a>
-	</div>
-	<div class="col-6 col-md-3 book-content">
-		<div class="row no-gutters row_title">
-			<a href="{{url_for('book', book_id=book._id)}}">
-				<strong>{{book.title}}</strong>
-			</a>
-		</div>
-		<div class="row no-gutters row_series">
-			{{book.series}}
-		</div>
-		<div class="row no-gutters row_author mt-2">
-			<strong><i>{{book.author}}</i></strong>
-		</div>
-		<div class="row no-gutters row_genre mt-2">
-			{{book.genre_name}}
-		</div>
+			</div>
+			<div class="col-6 col-md-3 book-content">
+				<div class="row no-gutters row_title">
+					<a href="{{url_for('book', book_id=result._id)}}">
+						<strong>{{result.title}}</strong>
+					</a>
+				</div>
+				<div class="row no-gutters row_series">
+					{{result.series}}
+				</div>
+				<div class="row no-gutters row_author mt-2">
+					<strong><i>{{result.author}}</i></strong>
+				</div>
+				<div class="row no-gutters row_genre mt-2">
+					{{result.genre_name}}
+				</div>
 
-		<div class="row no-gutters row_published mt-2">
-			<i>Published: {{book.published}}</i>
+				<div class="row no-gutters row_published mt-2">
+					<i>Published: {{result.published}}</i>
+				</div>
+				<div class="row no-gutters row_amazon mt-2">
+					<a href="{{result.amazon}}" target="_blank" alt="link to amazon">Buy on Amazon.com</a>
+				</div>
+			</div>
+			<div class="col-2 col-md-1 book_rating">
+				<i class="material-icons star_icon">star</i>
+				<p><strong>{{result.rating}}</strong></p>
+			</div>
+			<div class="col-md-5 d-none d-sm-block book_description">
+				<div class="row no-gutters">
+					<p class="row_description"><strong><i>Book description</i></strong></p>
+					{{result.description}}
+				</div>
+			</div>
+			{% endfor %}
 		</div>
-		<div class="row no-gutters row_amazon mt-2">
-			<a href="{{book.amazon}}" target="_blank" alt="link to amazon">Buy on Amazon.com</a>
-		</div>
-	</div>
-	<div class="col-2 book_rating">
-		<i class="material-icons star_icon">star</i>
-		<p><strong>{{book.rating}}</strong></p>
-	</div>
-	<div class="col-md-4 d-none d-sm-block book_description">
 		<div class="row no-gutters">
-			<p class="row_description"><strong><i>Book description</i></strong></p>
-			{{book.description}}
+			<div class="col text-center">
+				<a href="{{url_for('get_books',limit=5,offset=prv_url)}}" class="previous">&laquo; Previous</a>
+				<a href="{{url_for('get_books',limit=5,offset=next_url)}}" class="next">Next &raquo;</a>
+			</div>
 		</div>
 	</div>
-	{% endfor %}
 </div>
 {% endblock %}
