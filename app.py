@@ -22,7 +22,7 @@ def get_home():
                            books=list(mongo.db.books.find()))
 
 
-@app.route('/get_books/<limit>/<offset>', methods=['GET', 'POST'])
+@app.route('/get_books/<limit>/<offset>', methods=['GET'])
 def get_books(limit, offset):
     books = mongo.db.books
     starting_point = list(books.find().sort('author'))
@@ -42,7 +42,9 @@ def get_books(limit, offset):
     books = books.find({'author': {'$gte': end_point}}
                        ).sort('author').limit(int(limit))
     results = mongo.db.books.find({'genre_name':
-                                   request.form.get('genre_name')})
+                                   request.args.get('genre_name')})
+    for result in results:
+        print(result)
     return render_template('books.html',
                            books=books,
                            limit=limit,

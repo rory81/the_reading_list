@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row no-gutters">
-	<form>
+	<form action="{{url_for('get_books',limit=5,offset=0)}}" methods="GET">
 		<div class="input-field genre_filter col-8 s12 ml-4">
 			<select id="genre_name" name="genre_name">
                 <option value="" disabled selected>Choose Genre</option>
@@ -23,44 +23,45 @@
 		<div class="row no-gutters col-12 mx-auto mt-5">
 			<h3 class="title mx-auto">The Collection of Books</h3>
 		</div>
+        {{results}}
 		<div class="row no-gutters col-12 mt-3">
-			{% for book in books %}
+			{% for result in results %}
 			<div class="col-4 col-md-3 book-picture">
 				<a href="{{url_for('book', book_id=book._id)}}" class="img-holder">
-					<img src="{{book.picture}}" alt="{{book.title}}">
+					<img src="{{result.picture}}" alt="{{result.title}}">
                     </a>
 			</div>
 			<div class="col-6 col-md-3 book-content">
 				<div class="row no-gutters row_title">
 					<a href="{{url_for('book', book_id=book._id)}}">
-						<strong>{{book.title}}</strong>
+						<strong>{{result.title}}</strong>
 					</a>
 				</div>
 				<div class="row no-gutters row_series">
-					{{book.series}}
+					{{result.series}}
 				</div>
 				<div class="row no-gutters row_author mt-2">
-					<strong><i>{{book.author}}</i></strong>
+					<strong><i>{{result.author}}</i></strong>
 				</div>
 				<div class="row no-gutters row_genre mt-2">
-					{{book.genre_name}}
+					{{result.genre_name}}
 				</div>
 
 				<div class="row no-gutters row_published mt-2">
-					<i>Published: {{book.published}}</i>
+					<i>Published: {{result.published}}</i>
 				</div>
 				<div class="row no-gutters row_amazon mt-2">
-					<a href="{{book.amazon}}" target="_blank" alt="link to amazon">Buy on Amazon.com</a>
+					<a href="{{result.amazon}}" target="_blank" alt="link to amazon">Buy on Amazon.com</a>
 				</div>
 			</div>
 			<div class="col-2 col-md-1 book_rating">
 				<i class="material-icons star_icon">star</i>
-				<p><strong>{{book.rating}}</strong></p>
+				<p><strong>{{result.rating}}</strong></p>
 			</div>
 			<div class="col-md-5 d-none d-sm-block book_description">
 				<div class="row no-gutters">
 					<p class="row_description"><strong><i>Book description</i></strong></p>
-					{{book.description}}
+					{{result.description}}
 				</div>
 			</div>
 			{% endfor %}
