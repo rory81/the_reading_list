@@ -25,8 +25,10 @@ def get_home():
 @app.route('/get_books/<limit>/<offset>', methods=['GET'])
 def get_books(limit, offset):
     books = mongo.db.books
-    results = mongo.db.books.find(
-        {'genre_name': request.args.get('genre_name')})
+    if mongo.db.books.find({'genre_name': request.args.get('')}):
+        results = mongo.db.books.find()
+    else:
+        results = mongo.db.books.find({'genre_name': request.args.get('genre_name')})
     return render_template('books.html',
                            books=books,
                            limit=limit,
