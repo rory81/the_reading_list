@@ -25,27 +25,12 @@ def get_home():
 @app.route('/get_books/<limit>/<offset>', methods=['GET'])
 def get_books(limit, offset):
     books = mongo.db.books
-    starting_point = list(books.find().sort('author'))
-    end_point = starting_point[int(offset)]['author']
-    upper_limit = books.count()
-    if (int(offset)+int(limit)) < upper_limit:
-        next_url = str(int(offset)+int(limit))
-    else:
-        next_url = str(upper_limit-1)
-    if (int(offset)-int(limit)) > 0:
-        prv_url = str(int(offset)-int(limit))
-    else:
-        prv_url = str(0)
-    books = books.find({'author': {'$gte': end_point}}
-                       ).sort('author').limit(int(limit))
-    results = mongo.db.books.find({'genre_name':
-                                   request.args.get('genre_name')})
+    results = mongo.db.books.find(
+        {'genre_name': request.args.get('genre_name')})
     return render_template('books.html',
                            books=books,
                            limit=limit,
                            offset=offset,
-                           next_url=next_url,
-                           prv_url=prv_url,
                            results=results,
                            genres=list(mongo.db.genres.find()))
 
@@ -84,11 +69,11 @@ def add_book():
                            genres=mongo.db.genres.find())
 
 
-@app.route('/insert_book', methods=['POST'])
-def insert_book():
+@app.route('/insert_book', methods=['GET', 'POST'])
+def insert_book(user_id):
     books = mongo.db.books
     new_book = request.form.to_dict()
-    new_book['user_id'] = "user_id"
+    new_book['user_id'] = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     books.insert_one(request.form.to_dict())
     return redirect(url_for('get_books', limit=5, offset=0))
 
@@ -103,12 +88,6 @@ def book(book_id):
 def delete_book(book_id):
     mongo.db.books.remove({'_id': ObjectId(book_id)})
     return redirect(url_for('get_books', limit=5, offset=0))
-
-
-@app.route('/books_per_genre', methods=['POST'])
-def get_books_per_genre():
-    return render_template('genres.html', genres=mongo.db.genres.find(),
-                           books=list(mongo.db.books.find()))
 
 
 @app.route('/genre/<genre_id>')

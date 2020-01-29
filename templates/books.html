@@ -12,12 +12,6 @@
 			<button class="btn form right mt-4" type="submit">Submit
         </button>
 		</div>
-		<ul id="sidenav-1" class="sidenav sidenav-fixed d-none d-xl-block">
-			<li><a class="subheader">Genres</a></li>
-			{% for item in genres %}
-			<li><a href="{{url_for('get_books',limit=5,offset=0)}}">{{ item.genre_name }}</a></li>
-			{% endfor %}
-		</ul>
 	</form>
 	<div class="col-12">
 		<div class="row no-gutters col-12 mx-auto mt-5">
@@ -64,12 +58,6 @@
 				</div>
 			</div>
 			{% endfor %}
-		</div>
-		<div class="row no-gutters">
-			<div class="col text-center">
-				<a href="{{url_for('get_books',limit=5,offset=prv_url)}}" class="previous">&laquo; Previous</a>
-				<a href="{{url_for('get_books',limit=5,offset=next_url)}}" class="next">Next &raquo;</a>
-			</div>
 		</div>
 	</div>
 </div>

@@ -88,11 +88,6 @@ h3, h4{
   overflow: hidden;
 }
 
-.view_more a{
-     text-transform: uppercase;
-     color: #ffab40!important;
-}
-
 .book-content, .book-picture, .book_rating, .book_description{
     margin-top: 50px;
 }
@@ -187,7 +182,7 @@ button.btn.del {
         }
         
         .stars{
-            counpxter-reset: rateme 0;   
+            counter-reset: rateme 0;   
             font-size: 2.0rem;
             font-weight: 900;
         }
@@ -212,26 +207,19 @@ button.btn.del {
 
 /*PICTURE GRID*/
 
-.row{
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 4px;
+.indexrow img {
+    margin-left: 14px;
 }
 
-.column{
-    flex: 25%;
-    max-width: 25%;
-    padding: 0  4px;
+.view_more a{
+     text-transform: uppercase;
+     color: #ffab40!important;
+     margin-left: 14px;
 }
 
-.column.img-holder{
-    float: left;
+.indextitle{
+    margin-left: 14px;
 }
-
-
-
-
-
 
 
 
@@ -332,6 +320,7 @@ h3.title{
     height: 200px;
 }
 
+
 .row_title{
     font-size: 24px;
 }
@@ -343,14 +332,24 @@ a.edit_icon, a.delete_icon{
   left: 43%;
 }
 
+.indexrow img {
+    margin: 20px 0px 0px 60px;
+}
+
+.view_more a{
+     margin-left: 60px;
+}
+
+.indextitle{
+    margin-left: 60px;
+}
+
 }
 
 @media (min-width:1024px) {
 .title_line1{
         padding-left: 60px;
 }
-
-
 
 .title_line2{
     padding-left: 100px;
@@ -380,6 +379,18 @@ a.edit_icon, a.delete_icon{
 .sidenav{
     width:119px!important;
 }
+
+.indexrow img {
+    margin-left: 120px;
+}
+
+.view_more a{
+     margin-left: 120px;
+}
+
+.indextitle{
+    margin-left: 120px;
+}
 }
 
 
@@ -405,6 +416,18 @@ a.edit_icon, a.delete_icon{
     transform:translate(0px,242px)!important;
 }
 
+.indexrow img {
+    margin-left: 180px;
+}
+
+.view_more a{
+     margin-left: 180px;
+}
+
+.indextitle{
+    margin-left: 180px;
+}
+
 }
 
 
@@ -420,5 +443,17 @@ a.edit_icon, a.delete_icon{
 }
 .sidenav.sidenav-fixed{
     transform:translate(0px,229px)!important;
+}
+
+.indexrow img {
+    margin-left: 120px;
+}
+
+.view_more a{
+     margin-left: 120px;
+}
+
+.indextitle{
+    margin-left: 120px;
 }
 }
