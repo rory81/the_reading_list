@@ -25,10 +25,14 @@ def get_home():
 @app.route('/get_books/<limit>/<offset>', methods=['GET'])
 def get_books(limit, offset):
     books = mongo.db.books
-    if mongo.db.books.find({'genre_name': request.args.get('')}):
-        results = mongo.db.books.find()
-    else:
+    # results = mongo.db.books.find({'genre_name': request.args.get('genre_name')})
+    if request.args.get('genre_name'):
         results = mongo.db.books.find({'genre_name': request.args.get('genre_name')})
+        print("WEL genre geselecteerd")
+    else:
+        results = mongo.db.books.find()
+        print("GEEN genre geselecteerd")
+    print(request.args.get('genre_name'))
     return render_template('books.html',
                            books=books,
                            limit=limit,
@@ -72,11 +76,11 @@ def add_book():
 
 
 @app.route('/insert_book', methods=['GET', 'POST'])
-def insert_book(user_id):
+def insert_book():
     books = mongo.db.books
     new_book = request.form.to_dict()
-    new_book['user_id'] = mongo.db.users.find_one({'_id': ObjectId(user_id)})
-    books.insert_one(request.form.to_dict())
+    new_book['user_id'] = mongo.db.users.find_one({'email': session.get('user')})['_id']
+    books.insert_one(new_book)
     return redirect(url_for('get_books', limit=5, offset=0))
 
 
