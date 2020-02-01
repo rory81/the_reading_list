@@ -3,13 +3,12 @@
 <div class="row no-gutters">
 	<form action="{{url_for('get_books',limit=5, offset=0)}}" methods="GET">
 		<div class="input-field genre_filter col-8 s12 ml-4">
-			<select id="genre_name" name="genre_name">
+			<select id="genre_name" name="genre_name" onchange="this.form.submit();">
                 <option value="" disabled selected>Choose Genre</option>
                 {% for genre in genres%}
                 <option value="{{genre.genre_name}}">{{genre.genre_name}}</option>
                 {% endfor %}
             </select>
-			<button class="btn form right mt-4" type="submit">Submit</button>
 		</div>
 	</form>
 	<div class="col-12">
@@ -59,11 +58,19 @@
 			{% endfor %}
 		</div>
 	</div>
-	<div class="row no-gutters">
-		<div class="col text-center">
-			<a href="{{url_for('get_books',limit=5, offset=prv_page)}}" class="previous">&laquo; Previous</a>
-			<a href="{{url_for('get_books',limit=5, offset=next_page)}}" class="next">Next &raquo;</a>
-		</div>
+	<div class="page_buttons mx-auto mt-5">
+		<a href="{{url_for('get_books',limit=5,offset=prv_page)}}">
+			<button class="btn mt-4 previous">			
+            <i class="material-icons prefix">chevron_left</i>
+            Previous
+            </button>
+		</a>
+		<a href="{{url_for('get_books',limit=5,offset=next_page)}}">
+			<button class="btn mt-4 next">
+            Next
+            <i class="material-icons prefix">chevron_right</i>
+            </button>
+		</a>
 	</div>
 </div>
 {% endblock %}

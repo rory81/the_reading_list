@@ -148,7 +148,17 @@ button.btn.del {
    }
 
 
-/*PAGINATION*/
+/*PAGINATION*/	
+
+.next:hover,.previous:hover{
+    background-color: #4CAF50;
+    color: white!important;	
+}
+
+.page_buttons.btn:focus{
+    box-shadow: none;
+}
+
 
 /*STAR RATING SYSTEM*/
         .star{
