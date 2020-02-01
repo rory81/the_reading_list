@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> Welcome {{ user.email|first }} </h1>
 <div class="row no-gutters">
 	<form action="{{url_for('get_books',limit=5,offset=0)}}" methods="GET">
+		<p class="welcome ml-2 mt-1"> Welcome {{ user.first }} </p>
 		<div class="input-field genre_filter col-8 s12 ml-4">
 			<select id="genre_name" name="genre_name">
                 <option value="" disabled selected>Choose Genre</option>
@@ -10,8 +10,7 @@
                 <option value="{{genre.genre_name}}">{{genre.genre_name}}</option>
                 {% endfor %}
             </select>
-			<button class="btn form right mt-4" type="submit">Submit
-        </button>
+			<button class="btn form right mt-2" type="submit">Submit</button>
 		</div>
 	</form>
 	<div class="col-12">
@@ -60,13 +59,6 @@
 			</div>
 			{% endfor %}
 		</div>
-		<div class="row no-gutters">
-			<div class="col text-center">
-				<a href="{{url_for('get_books',limit=5,offset=prv_url)}}" class="previous">&laquo; Previous</a>
-				<a href="{{url_for('get_books',limit=5,offset=next_url)}}" class="next">Next &raquo;</a>
-			</div>
-		</div>
 	</div>
 </div>
-
 {% endblock %}

@@ -24,20 +24,26 @@ def get_home():
 
 @app.route('/get_books/<limit>/<offset>', methods=['GET'])
 def get_books(limit, offset):
-    books = mongo.db.books
-    # results = mongo.db.books.find({'genre_name': request.args.get('genre_name')})
+    upper_limit = mongo.db.books.count()
     if request.args.get('genre_name'):
-        results = mongo.db.books.find({'genre_name': request.args.get('genre_name')})
-        print("WEL genre geselecteerd")
+        results = mongo.db.books.find(
+            {'genre_name': request.args.get('genre_name')}).sort('author').skip(int(offset)).limit(int(limit))
     else:
-        results = mongo.db.books.find()
-        print("GEEN genre geselecteerd")
-    print(request.args.get('genre_name'))
+        results = mongo.db.books.find().sort('author').skip(int(offset)).limit(int(limit))
+    if (int(offset)+int(limit)) < upper_limit:
+        next_page = int(offset)+int(limit)
+    else:
+        next_page = int(upper_limit-1)
+    if (int(offset)-int(limit)) > 0:
+        prv_page = int(offset)-int(limit)
+    else:
+        prv_page = 0
     return render_template('books.html',
-                           books=books,
                            limit=limit,
                            offset=offset,
                            results=results,
+                           next_page=next_page,
+                           prv_page=prv_page,
                            genres=list(mongo.db.genres.find()))
 
 
@@ -79,7 +85,8 @@ def add_book():
 def insert_book():
     books = mongo.db.books
     new_book = request.form.to_dict()
-    new_book['user_id'] = mongo.db.users.find_one({'email': session.get('user')})['_id']
+    new_book['user_id'] = mongo.db.users.find_one(
+        {'email': session.get('user')})['_id']
     books.insert_one(new_book)
     return redirect(url_for('get_books', limit=5, offset=0))
 
@@ -197,7 +204,15 @@ def profile(user):
     if 'user' in session:
         # If so get the user and pass him to template for now
         user_in_db = mongo.db.users.find_one({'email': user})
-        return render_template('profile.html', user=user_in_db)
+        if request.args.get('genre_name'):
+            results = mongo.db.books.find(
+                {'genre_name': request.args.get('genre_name')}).sort('author')
+        else:
+            results = mongo.db.books.find().sort('author')
+        return render_template('profile.html',
+                               user=user_in_db,
+                               results=results,
+                               genres=list(mongo.db.genres.find()))
     else:
         flash('You must be logged in to view a profile')
         return redirect(url_for('get_home'))
