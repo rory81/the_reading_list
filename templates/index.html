@@ -19,7 +19,7 @@
 	{% endfor %}
 
 
-	<div class="view_more mt-3"><a href="#">View More of this Genre</a></div>
+	<div class="view_more mt-3"><a href="{{url_for('get_books',limit=5, offset=0,genre_name=genre.genre_name)}}">View More of this Genre</a></div>
 	{% endfor %}
 
 
