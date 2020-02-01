@@ -2,6 +2,7 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
+from flask_paginate import get_page_args
 from flask import Flask, render_template, redirect, request, \
     url_for, session, flash
 
@@ -144,6 +145,8 @@ def get_registered():
                     # Log user in (add to session)
                     session['user'] = user_in_db['email']
                     return redirect(url_for('profile',
+                                            limit=5,
+                                            offset=0,
                                             user=user_in_db['email']))
                 else:
                     flash('There was a problem saving your profile')
@@ -164,7 +167,10 @@ def login():
         if user_in_db:
             # If so redirect user to his profile
             flash('You are logged in already!')
-            return redirect(url_for('profile', user=user_in_db['email']))
+            return redirect(url_for('profile',
+                                    limit=5,
+                                    offset=0,
+                                    user=user_in_db['email']))
     else:
         # Render the page for user to be able to log in
         return render_template('login.html')
@@ -180,7 +186,10 @@ def user_auth():
         if check_password_hash(user_in_db['password'], form['password']):
             # Log user in (add to session)
             session['user'] = form['email']
-            return redirect(url_for('profile', user=user_in_db['email']))
+            return redirect(url_for('profile',
+                                    limit=5,
+                                    offset=0,
+                                    user=user_in_db['email']))
         else:
             flash('Wrong password or user name')
             return redirect(url_for('login'))
@@ -198,21 +207,38 @@ def logout():
 
 
 # Profile Page
-@app.route('/profile/<user>')
-def profile(user):
+@app.route('/profile/<limit>/<offset>/<user>')
+def profile(limit, offset, user):
     # Check if user is logged in
     if 'user' in session:
         # If so get the user and pass him to template for now
-        user_in_db = mongo.db.users.find_one({'email': user})
+        user_in_db = mongo.db.users.find_one(
+            {'email': session.get('user')})
+        print(user_in_db)
+        upper_limit = mongo.db.books.count()
         if request.args.get('genre_name'):
             results = mongo.db.books.find(
-                {'genre_name': request.args.get('genre_name')}).sort('author')
+                {'genre_name': request.args.get('genre_name')},
+                {"user_id": ObjectId(user_in_db['_id'])}).sort('author').skip(int(offset)).limit(int(limit))
         else:
-            results = mongo.db.books.find().sort('author')
-        return render_template('profile.html',
-                               user=user_in_db,
-                               results=results,
-                               genres=list(mongo.db.genres.find()))
+            results = mongo.db.books.find({"user_id": ObjectId(user_in_db['_id'])}).sort(
+                'author').skip(int(offset)).limit(int(limit))
+        if (int(offset)+int(limit)) < upper_limit:
+            next_page = int(offset)+int(limit)
+        else:
+            next_page = int(upper_limit-1)
+        if (int(offset)-int(limit)) > 0:
+            prv_page = int(offset)-int(limit)
+        else:
+            prv_page = 0
+            return render_template('profile.html',
+                                   user=user_in_db,
+                                   offset=offset,
+                                   limit=limit,
+                                   next_page=next_page,
+                                   prv_page=prv_page,
+                                   results=results,
+                                   genres=list(mongo.db.genres.find()))
     else:
         flash('You must be logged in to view a profile')
         return redirect(url_for('get_home'))
