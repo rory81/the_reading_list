@@ -15,7 +15,7 @@
 			{{genres.genre_name}} <li><a class="subheader">Genres</a></li>
 			{% for genre in genres %}
 			<li><a
-					href="{{url_for('get_books',limit=5, offset=0,genre_name=genre.genre_name)}}">{{ genre.genre_name }}</a>
+					href="{{url_for('profile',limit=5, offset=0,user=user._id,genre_name=genre.genre_name)}}">{{ genre.genre_name }}</a>
 			</li>
 			{% endfor %}
 		</ul>

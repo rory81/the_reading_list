@@ -223,15 +223,15 @@ def profile(limit, offset, user):
         upper_limit = mongo.db.books.count()
         if request.args.get('genre_name'):
             results = mongo.db.books.find(
-                {'genre_name': request.args.get('genre_name')},
-                {"user_id": ObjectId(user_in_db['_id'])}).sort('author').skip(int(offset)).limit(int(limit))
+                {'genre_name': request.args.get('genre_name'),
+                 "user_id": ObjectId(user_in_db['_id'])}).sort('author').skip(int(offset)).limit(int(limit))
         else:
             results = mongo.db.books.find({"user_id": ObjectId(user_in_db['_id'])}).sort(
                 'author').skip(int(offset)).limit(int(limit))
-            if (int(offset)+int(limit)) < upper_limit:
-                next_page = int(offset)+int(limit)
-            else:
-                next_page = int(upper_limit-1)
+        if (int(offset)+int(limit)) < (int(upper_limit)-int(limit)):
+            next_page = int(offset)+int(limit)
+        else:
+            next_page = int(upper_limit-1)
         if (int(offset)-int(limit)) > 0:
             prv_page = int(offset)-int(limit)
         else:
