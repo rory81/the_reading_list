@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row no-gutters">
-	<form action="{{url_for('get_books',limit=5,offset=0)}}" methods="GET">
+	<form action="{{url_for('profile',limit=5,offset=0,user=user._id)}}" methods="GET">
 		<h6 class="welcome ml-2 mt-1"> Welcome {{ user.first }} </h6>
 		<div class="input-field genre_filter col-8 s12 ml-4">
 			<select id="genre_name" name="genre_name" onchange="this.form.submit();">
@@ -11,6 +11,14 @@
                 {% endfor %}
             </select>
 		</div>
+		<ul id="sidenav-1" class="sidenav sidenav-fixed d-none d-xl-block">
+			{{genres.genre_name}} <li><a class="subheader">Genres</a></li>
+			{% for genre in genres %}
+			<li><a
+					href="{{url_for('get_books',limit=5, offset=0,genre_name=genre.genre_name)}}">{{ genre.genre_name }}</a>
+			</li>
+			{% endfor %}
+		</ul>
 	</form>
 	<div class="col-12">
 		<div class="row no-gutters col-12 mx-auto mt-5">
@@ -60,13 +68,15 @@
 		</div>
 	</div>
 	<div class="page_buttons mx-auto mt-5">
-		<a href="{{url_for('get_books',limit=5,offset=prv_page)}}">
+		<a
+			href="{{url_for('profile',limit=5,offset=prv_page,user=user._id,genre_name=request.args.get('genre_name'))}}">
 			<button class="btn mt-4 previous">
             <i class="material-icons prefix">chevron_left</i>
             Previous
             </button>
 		</a>
-		<a href="{{url_for('get_books',limit=5,offset=next_page)}}">
+		<a
+			href="{{url_for('profile',limit=5,offset=next_page,user=user._id,genre_name=request.args.get('genre_name'))}}">
 			<button class="btn mt-4 next">
             Next
             <i class="material-icons prefix">chevron_right</i>

@@ -10,6 +10,14 @@
                 {% endfor %}
             </select>
 		</div>
+		<ul id="sidenav-1" class="sidenav sidenav-fixed d-none d-xl-block">
+			{{genres.genre_name}} <li><a class="subheader">Genres</a></li>
+			{% for genre in genres %}
+			<li><a
+					href="{{url_for('get_books',limit=5, offset=0,genre_name=genre.genre_name)}}">{{ genre.genre_name }}</a>
+			</li>
+			{% endfor %}
+		</ul>
 	</form>
 	<div class="col-12">
 		<div class="row no-gutters col-12 mx-auto mt-5">
@@ -59,13 +67,13 @@
 		</div>
 	</div>
 	<div class="page_buttons mx-auto mt-5">
-		<a href="{{url_for('get_books',limit=5,offset=prv_page)}}">
-			<button class="btn mt-4 previous">			
+		<a href="{{url_for('get_books',limit=5,offset=prv_page,genre_name=request.args.get('genre_name'))}}">
+			<button class="btn mt-4 previous">
             <i class="material-icons prefix">chevron_left</i>
             Previous
             </button>
 		</a>
-		<a href="{{url_for('get_books',limit=5,offset=next_page)}}">
+		<a href="{{url_for('get_books',limit=5,offset=next_page,genre_name=request.args.get('genre_name'))}}">
 			<button class="btn mt-4 next">
             Next
             <i class="material-icons prefix">chevron_right</i>

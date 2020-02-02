@@ -2,7 +2,6 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
-from flask_paginate import get_page_args
 from flask import Flask, render_template, redirect, request, \
     url_for, session, flash
 
@@ -25,16 +24,22 @@ def get_home():
 
 @app.route('/get_books/<limit>/<offset>', methods=['GET'])
 def get_books(limit, offset):
-    upper_limit = mongo.db.books.count()
     if request.args.get('genre_name'):
+        upper_limit = mongo.db.books.find(
+            {'genre_name': request.args.get('genre_name')}).count()
         results = mongo.db.books.find(
             {'genre_name': request.args.get('genre_name')}).sort('author').skip(int(offset)).limit(int(limit))
+        if (int(offset)+int(limit)) < int(upper_limit):
+            next_page = int(offset)+int(limit)
+        else:
+            next_page = (int(upper_limit)-int(limit))
     else:
+        upper_limit = mongo.db.books.count()
         results = mongo.db.books.find().sort('author').skip(int(offset)).limit(int(limit))
-    if (int(offset)+int(limit)) < upper_limit:
-        next_page = int(offset)+int(limit)
-    else:
-        next_page = int(upper_limit-1)
+        if (int(offset)+int(limit)) < (int(upper_limit)-int(limit)):
+            next_page = int(offset)+int(limit)
+        else:
+            next_page = int(upper_limit-1)
     if (int(offset)-int(limit)) > 0:
         prv_page = int(offset)-int(limit)
     else:
@@ -223,22 +228,22 @@ def profile(limit, offset, user):
         else:
             results = mongo.db.books.find({"user_id": ObjectId(user_in_db['_id'])}).sort(
                 'author').skip(int(offset)).limit(int(limit))
-        if (int(offset)+int(limit)) < upper_limit:
-            next_page = int(offset)+int(limit)
-        else:
-            next_page = int(upper_limit-1)
+            if (int(offset)+int(limit)) < upper_limit:
+                next_page = int(offset)+int(limit)
+            else:
+                next_page = int(upper_limit-1)
         if (int(offset)-int(limit)) > 0:
             prv_page = int(offset)-int(limit)
         else:
             prv_page = 0
-            return render_template('profile.html',
-                                   user=user_in_db,
-                                   offset=offset,
-                                   limit=limit,
-                                   next_page=next_page,
-                                   prv_page=prv_page,
-                                   results=results,
-                                   genres=list(mongo.db.genres.find()))
+        return render_template('profile.html',
+                               user=user_in_db,
+                               offset=offset,
+                               limit=limit,
+                               next_page=next_page,
+                               prv_page=prv_page,
+                               results=results,
+                               genres=list(mongo.db.genres.find()))
     else:
         flash('You must be logged in to view a profile')
         return redirect(url_for('get_home'))

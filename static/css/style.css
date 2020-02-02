@@ -402,12 +402,13 @@ a.edit_icon, a.delete_icon{
     padding-top: 25px;
 }
 
-/*.genre_filter{
+.genre_filter{
     visibility: hidden;
-}*/
+}
 
 .sidenav.sidenav-fixed{
     transform:translate(0px,242px)!important;
+    box-shadow: none!important;
 }
 
 .indexrow img {
@@ -451,3 +452,9 @@ a.edit_icon, a.delete_icon{
     margin-left: 120px;
 }
 }
+@media (min-width:1600px) {
+.sidenav.sidenav-fixed{
+    transform:translate(0px,264px)!important;
+}
+
+)
