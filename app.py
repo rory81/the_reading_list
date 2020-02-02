@@ -169,13 +169,10 @@ def login():
     # Check if user is not logged in already
     if 'user' in session:
         user_in_db = mongo.db.users.find_one({'email': session['user']})
-        if user_in_db:
-            # If so redirect user to his profile
-            flash('You are logged in already!')
-            return redirect(url_for('profile',
-                                    limit=5,
-                                    offset=0,
-                                    user=user_in_db['email']))
+        return redirect(url_for('profile',
+                                limit=5,
+                                offset=0,
+                                user=user_in_db['email']))
     else:
         # Render the page for user to be able to log in
         return render_template('login.html')
