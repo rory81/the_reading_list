@@ -200,6 +200,31 @@ def user_auth():
         return redirect(url_for('login'))
 
 
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    if 'user' in session:
+        flash('You are already signed in!')
+        return redirect(url_for('get_books', limit=5, offset=0))
+    if request.method == 'POST':
+        form = request.form.to_dict()
+        # Check if the password and password1 actualy match
+        if form['password'] == form['password_2']:
+            user = mongo.db.users.find_one({'email': form['email']})
+            print(user['_id'])
+            if user:
+                hash_pass = generate_password_hash(form['password'])
+                mongo.db.users.update_one({"_id": user['_id']}, {
+                                          "$set": {"password": hash_pass}})
+                return redirect(url_for('login'))
+            else:
+                flash('There is no account with this email address')
+                return redirect(url_for('get_registered'))
+        else:
+            flash("Warning! Passwords don't match!")
+            return redirect(url_for('reset_password'))
+    return render_template('reset_password.html')
+
+
 @app.route('/logout')
 def logout():
     # Clear the session
