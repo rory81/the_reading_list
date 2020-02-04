@@ -24,22 +24,17 @@ def get_home():
 
 @app.route('/get_books/<limit>/<offset>', methods=['GET'])
 def get_books(limit, offset):
+    next_page = int(offset)
     if request.args.get('genre_name'):
         upper_limit = mongo.db.books.find(
             {'genre_name': request.args.get('genre_name')}).count()
         results = mongo.db.books.find(
             {'genre_name': request.args.get('genre_name')}).sort('author').skip(int(offset)).limit(int(limit))
-        if (int(offset)+int(limit)) < int(upper_limit):
-            next_page = int(offset)+int(limit)
-        else:
-            next_page = (int(upper_limit)-int(limit))
     else:
         upper_limit = mongo.db.books.count()
         results = mongo.db.books.find().sort('author').skip(int(offset)).limit(int(limit))
-        if (int(offset)+int(limit)) < (int(upper_limit)-int(limit)):
-            next_page = int(offset)+int(limit)
-        else:
-            next_page = int(upper_limit-1)
+    if (int(offset)+int(limit)) < int(upper_limit):
+        next_page = int(offset)+int(limit)
     if (int(offset)-int(limit)) > 0:
         prv_page = int(offset)-int(limit)
     else:
@@ -241,19 +236,23 @@ def profile(limit, offset, user):
         # If so get the user and pass him to template for now
         user_in_db = mongo.db.users.find_one(
             {'email': session.get('user')})
-        print(user_in_db)
-        upper_limit = mongo.db.books.count()
+        next_page = int(offset)
         if request.args.get('genre_name'):
-            results = mongo.db.books.find(
-                {'genre_name': request.args.get('genre_name'),
-                 "user_id": ObjectId(user_in_db['_id'])}).sort('author').skip(int(offset)).limit(int(limit))
+            upper_limit = mongo.db.books.find({'genre_name': request.args.get(
+                'genre_name'), "user_id": ObjectId(user_in_db['_id'])}).count()
+            results = mongo.db.books.find({"user_id": ObjectId(user_in_db['_id'])})
+            if upper_limit == 0:
+                flash('There are no books for this genre!')
+            else:
+                results = mongo.db.books.find({'genre_name': request.args.get('genre_name'),
+                                               "user_id": ObjectId(user_in_db['_id'])}).sort('author').skip(int(offset)).limit(int(limit))
         else:
+            upper_limit = mongo.db.books.find(
+                {"user_id": ObjectId(user_in_db['_id'])}).count()
             results = mongo.db.books.find({"user_id": ObjectId(user_in_db['_id'])}).sort(
                 'author').skip(int(offset)).limit(int(limit))
-        if (int(offset)+int(limit)) < (int(upper_limit)-int(limit)):
+        if (int(offset)+int(limit)) < int(upper_limit):
             next_page = int(offset)+int(limit)
-        else:
-            next_page = int(upper_limit-1)
         if (int(offset)-int(limit)) > 0:
             prv_page = int(offset)-int(limit)
         else:
