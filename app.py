@@ -70,7 +70,9 @@ def update_book(book_id):
             'amazon': request.form.get('amazon'),
             'description': request.form.get('description'),
             'picture': request.form.get('picture'),
-            'rating': request.form.get('rating')
+            'rating': request.form.get('rating'),
+            'user_id': mongo.db.users.find_one(
+                {'email': session.get('user')})['_id']
         }
     )
     return redirect(url_for('get_books', limit=5, offset=0))
@@ -240,7 +242,8 @@ def profile(limit, offset, user):
         if request.args.get('genre_name'):
             upper_limit = mongo.db.books.find({'genre_name': request.args.get(
                 'genre_name'), "user_id": ObjectId(user_in_db['_id'])}).count()
-            results = mongo.db.books.find({"user_id": ObjectId(user_in_db['_id'])})
+            results = mongo.db.books.find(
+                {"user_id": ObjectId(user_in_db['_id'])})
             if upper_limit == 0:
                 flash('There are no books for this genre!')
             else:

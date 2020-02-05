@@ -68,7 +68,7 @@ nav ul a, .register, .row_title a{
 }
 
 .row_title a{
-    font-size: 22px;
+    font-size: 17px;
 }
 
 .sidenav{
@@ -207,8 +207,9 @@ button.btn.del {
 
 .view_more a{
      text-transform: uppercase;
-     color: #ffab40!important;
+     color: #33CCFF!important;
      margin-left: 14px;
+     font-size: 12px;
 }
 
 .indextitle{
@@ -271,6 +272,10 @@ a.edit_icon, a.delete_icon{
 
 .required{
     color: darkgrey;
+}
+
+.reset{
+    color:darkgray;
 }
 
 
@@ -362,6 +367,10 @@ h3.title{
     font-size: 38px;
 }
 
+.row_title a{
+    font-size: 18px;
+}
+
 .img-holder img {
     width: 150px;
     height: 200px;
@@ -402,12 +411,12 @@ a.edit_icon, a.delete_icon{
     padding-top: 25px;
 }
 
-/*.genre_filter{
+.genre_filter{
     visibility: hidden;
-}*/
+}
 
 .sidenav.sidenav-fixed{
-    transform:translate(0px,242px)!important;
+    transform:translate(0px,246px)!important;
     box-shadow: none!important;
 }
 
@@ -437,7 +446,7 @@ a.edit_icon, a.delete_icon{
     height: 300px;
 }
 .sidenav.sidenav-fixed{
-    transform:translate(0px,229px)!important;
+    transform:translate(0px,233px)!important;
 }
 
 .indexrow img {
