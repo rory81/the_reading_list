@@ -5,7 +5,7 @@
 	<!--<a href="#" class="material-icons prefix right edit_icon">create</a> -->
 
 </div>
-<div class="row mt-4">
+<div class="row main_row mt-4">
 	<form action="{{url_for('update_book', book_id=book._id)}}" method="POST" class="form_book col s12">
 		<div class="row">
 			<div class="input-field col s12">
@@ -73,6 +73,18 @@
 				<label for="picture">Picture*</label>
 			</div>
 		</div>
+
+        		<div class="col s12">
+			<div class="stars text-center" data-rating="{{book.rating}}">
+				<h3 class="title">Add a rating</h3>
+				<span class="star">&nbsp;</span>
+				<span class="star">&nbsp;</span>
+				<span class="star">&nbsp;</span>
+				<span class="star">&nbsp;</span>
+				<span class="star">&nbsp;</span>
+				<input id="rating" type="number" name="rating" value="{{book.rating}}" readonly hidden>
+			</div>
+			</div>
 
 		<button class="btn form right md-2" type="submit">Update Book
             <i class="material-icons prefix">add_box</i>

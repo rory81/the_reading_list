@@ -5,7 +5,7 @@
 	<!--<a href="#" class="material-icons prefix right edit_icon">create</a> -->
 
 </div>
-<div class="row mt-4">
+<div class="row main_row mt-4">
 	<form action="{{url_for('insert_book')}}" method="POST" class="form_book col s12">
 		<div class="row">
 			<div class="input-field col s12">
@@ -26,7 +26,7 @@
 			<div class="input-field col s12">
 				<i class="material-icons prefix">art_track</i>
 				<select id="genre" name="genre_name">
-                        <option value="" disabled selected>Choose Genre*</option>
+                        <option value="" disabled selected>Choose Genre</option>
                     {% for genre in genres%}
                         <option>{{genre.genre_name}}</option>
                     {% endfor %}
@@ -77,7 +77,7 @@
 				<span class="star">&nbsp;</span>
 				<span class="star">&nbsp;</span>
 				<span class="star">&nbsp;</span>
-				<input id="rating" type="number" name="rating" readonly hidden>
+				<input id="rating" type="number" name="rating" required readonly hidden>
 			</div>
 			</div>
 

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700|Pacifico:100,200,300,400,500,600,700|Satisfy');
 
-.test_row{
-    border: 2px red solid;
+.main_row{
+    margin-bottom: 20px!important;
 }
 
 body{
@@ -26,6 +26,15 @@ body{
 
 .title-logo{
     color:white;
+}
+
+.title_line1 a, .title_line2 a, .title_line3 a{
+    color: white;
+}
+
+.title_line1 a:hover, .title_line2 a:hover, .title_line3 a:hover{
+    color: white;
+    text-decoration: none;
 }
 
 .title_line1, .title_line3{
@@ -68,7 +77,7 @@ nav ul a, .register, .row_title a{
 }
 
 .row_title a{
-    font-size: 22px;
+    font-size: 17px;
 }
 
 .sidenav{
@@ -87,7 +96,6 @@ h3, h4{
   position: relative;
   overflow: hidden;
 }
-
 
 .book-content, .book-picture, .book_rating, .book_description{
     margin-top: 50px;
@@ -144,6 +152,21 @@ button.btn.del {
         color: #5cb85c;
         border: 1px #5cb85c solid;
    }
+   .welcome{
+       color:#33CCFF
+   }
+
+
+/*PAGINATION*/	
+
+.next:hover,.previous:hover{
+    background-color: #4CAF50;
+    color: white!important;	
+}
+
+.page_buttons.btn:focus{
+    box-shadow: none;
+}
 
 
 /*STAR RATING SYSTEM*/
@@ -184,6 +207,25 @@ button.btn.del {
         .bread_head a{
             color: grey;
         }
+
+/*PICTURE GRID*/
+
+.indexrow img {
+    margin-left: 14px;
+}
+
+.view_more a{
+     text-transform: uppercase;
+     color: #33CCFF!important;
+     margin-left: 14px;
+     font-size: 12px;
+}
+
+.indextitle{
+    margin-left: 14px;
+}
+
+
 
 
 /*FORMS*/
@@ -241,6 +283,10 @@ a.edit_icon, a.delete_icon{
     color: darkgrey;
 }
 
+.reset{
+    color:darkgray;
+}
+
 
 
 
@@ -282,6 +328,7 @@ h3.title{
     height: 200px;
 }
 
+
 .row_title{
     font-size: 24px;
 }
@@ -293,14 +340,24 @@ a.edit_icon, a.delete_icon{
   left: 43%;
 }
 
+.indexrow img {
+    margin: 20px 0px 0px 60px;
+}
+
+.view_more a{
+     margin-left: 60px;
+}
+
+.indextitle{
+    margin-left: 60px;
+}
+
 }
 
 @media (min-width:1024px) {
 .title_line1{
         padding-left: 60px;
 }
-
-
 
 .title_line2{
     padding-left: 100px;
@@ -319,6 +376,10 @@ h3.title{
     font-size: 38px;
 }
 
+.row_title a{
+    font-size: 18px;
+}
+
 .img-holder img {
     width: 150px;
     height: 200px;
@@ -329,6 +390,18 @@ a.edit_icon, a.delete_icon{
 }
 .sidenav{
     width:119px!important;
+}
+
+.indexrow img {
+    margin-left: 120px;
+}
+
+.view_more a{
+     margin-left: 120px;
+}
+
+.indextitle{
+    margin-left: 120px;
 }
 }
 
@@ -352,7 +425,20 @@ a.edit_icon, a.delete_icon{
 }
 
 .sidenav.sidenav-fixed{
-    transform:translate(0px,242px)!important;
+    transform:translate(0px,246px)!important;
+    box-shadow: none!important;
+}
+
+.indexrow img {
+    margin-left: 180px;
+}
+
+.view_more a{
+     margin-left: 180px;
+}
+
+.indextitle{
+    margin-left: 180px;
 }
 
 }
@@ -369,6 +455,24 @@ a.edit_icon, a.delete_icon{
     height: 300px;
 }
 .sidenav.sidenav-fixed{
-    transform:translate(0px,229px)!important;
+    transform:translate(0px,233px)!important;
+}
+
+.indexrow img {
+    margin-left: 120px;
+}
+
+.view_more a{
+     margin-left: 120px;
+}
+
+.indextitle{
+    margin-left: 120px;
 }
 }
+@media (min-width:1600px) {
+.sidenav.sidenav-fixed{
+    transform:translate(0px,264px)!important;
+}
+
+)

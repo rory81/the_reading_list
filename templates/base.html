@@ -21,13 +21,13 @@
 				<div class="row no-gutters">
 					<div class="container-fluid col-6">
 						<div class="col title-logo">
-							<div class="row no-gutters title_line1">The</div>
-							<div class="row no-gutters title_line2">Reading</div>
-							<div class="row no-gutters title_line3">List</div>
+							<div class="row no-gutters title_line1"><a href="{{url_for('get_home')}}">The</a></div>
+							<div class="row no-gutters title_line2"><a href="{{url_for('get_home')}}">Reading</a></div>
+							<div class="row no-gutters title_line3"><a href="{{url_for('get_home')}}">List</a></div>
 
 						</div>
 					</div>
-					<a href="#" class="container-fluid col-6 picture-logo">
+					<a href="{{url_for('get_home')}}" class="container-fluid col-6 picture-logo">
 						<img src="{{url_for('static', filename='images/tree_with_books_small.png')}}" alt="tree with books">
                     </a>
 
@@ -38,28 +38,27 @@
 			<div class="nav-wrapper">
 				<a href="{{url_for('logout')}}" class="logout right  mr-5">Logout</a>
 				<a href="{{url_for('login')}}" class="register right mr-5">Login</a>
-                <a href="{{url_for('get_registered')}}" class="register right mr-5">Register</a>
+				<a href="{{url_for('get_registered')}}" class="register right mr-5">Register</a>
 				<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul id="nav-mobile" class="left ml-3 hide-on-med-and-down">
 					<li><a href="{{url_for('get_home')}}">Home</a></li>
-					<li><a href="{{url_for('get_books_per_genre')}}">Genres</a></li>
-					<li><a href="{{url_for('get_books')}}">Books</a></li>
+					<li><a href="{{url_for('get_books', limit=5, offset=0)}}">All Books</a></li>
 					<li><a href="{{url_for('add_book')}}">Add a Book</a></li>
+                    <li><a href="{{url_for('login')}}">My Books</a></li>
 
 				</ul>
 				<ul class="sidenav" id="mobile-nav">
 					<li><a href="{{url_for('get_home')}}">Home</a></li>
-					<li><a href="{{url_for('get_books_per_genre')}}">Genres</a></li>
-					<li><a href="{{url_for('get_books')}}">Books</a></li>
+					<li><a href="{{url_for('get_books', limit=5, offset=0)}}">All Books</a></li>
 					<li><a href="{{url_for('add_book')}}">Add a Book</a></li>
-
+                    <li><a href="{{url_for('login')}}">My Books</a></li>
 				</ul>
 			</div>
 		</nav>
 	</header>
 	<!-- Flashed messages alerts modal -->
 	<div class="container-fluid">
-		<div class="row col-12 justify-content-center mt-5">
+		<div class="row col-12 justify-content-center">
 			<div id="messages">
 				{% with messages = get_flashed_messages() %}
 				{% if messages %}
