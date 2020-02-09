@@ -58,30 +58,41 @@ def edit_book(book_id):
 
 @app.route('/update_book/<book_id>', methods=['POST'])
 def update_book(book_id):
-    books = mongo.db.books
-    books.update(
-        {'_id': ObjectId(book_id)},
-        {
-            'title': request.form.get('title'),
-            'author': request.form.get('author'),
-            'genre_name': request.form.get('genre_name'),
-            'series': request.form.get('series'),
-            'published': request.form.get('published'),
-            'amazon': request.form.get('amazon'),
-            'description': request.form.get('description'),
-            'picture': request.form.get('picture'),
-            'rating': request.form.get('rating'),
-            'user_id': mongo.db.users.find_one(
-                {'email': session.get('user')})['_id']
-        }
-    )
-    return redirect(url_for('get_books', limit=5, offset=0))
+    if 'user' not in session:
+        flash('You have to be logged in to update a book')
+        return redirect(url_for('login'))
+    else:
+        books = mongo.db.books
+        books.update(
+            {'_id': ObjectId(book_id)},
+            {
+                'title': request.form.get('title'),
+                'author': request.form.get('author'),
+                'genre_name': request.form.get('genre_name'),
+                'series': request.form.get('series'),
+                'published': request.form.get('published'),
+                'amazon': request.form.get('amazon'),
+                'description': request.form.get('description'),
+                'picture': request.form.get('picture'),
+                'rating': request.form.get('rating'),
+                'user_id': mongo.db.users.find_one(
+                    {'email': session.get('user')})['_id']
+            }
+        )
+        return redirect(url_for('profile',
+                                limit=5,
+                                offset=0,
+                                user=mongo.db.users.find_one({'email': session['user']})['email']))
 
 
 @app.route('/add_book')
 def add_book():
-    return render_template('addbook.html', books=mongo.db.books.find(),
-                           genres=mongo.db.genres.find())
+    if 'user' not in session:
+        flash('You have to be logged in to add a book')
+        return redirect(url_for('login'))
+    else:
+        return render_template('addbook.html', books=mongo.db.books.find(),
+                               genres=mongo.db.genres.find())
 
 
 @app.route('/insert_book', methods=['GET', 'POST'])
@@ -91,7 +102,10 @@ def insert_book():
     new_book['user_id'] = mongo.db.users.find_one(
         {'email': session.get('user')})['_id']
     books.insert_one(new_book)
-    return redirect(url_for('get_books', limit=5, offset=0))
+    return redirect(url_for('profile',
+                            limit=5,
+                            offset=0,
+                            user=mongo.db.users.find_one({'email': session['user']})['email']))
 
 
 @app.route('/book/<book_id>')
@@ -102,8 +116,15 @@ def book(book_id):
 
 @app.route('/delete_book/<book_id>')
 def delete_book(book_id):
-    mongo.db.books.remove({'_id': ObjectId(book_id)})
-    return redirect(url_for('get_books', limit=5, offset=0))
+    if 'user' not in session:
+        flash('You have to be logged in to delete a book')
+        return redirect(url_for('login'))
+    else:
+        mongo.db.books.remove({'_id': ObjectId(book_id)})
+        return redirect(url_for('profile',
+                                limit=5,
+                                offset=0,
+                                user=mongo.db.users.find_one({'email': session['user']})['email']))
 
 
 @app.route('/genre/<genre_id>')

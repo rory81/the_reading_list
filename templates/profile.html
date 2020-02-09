@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row no-gutters">
+<div class="row no-gutters main_row">
 	<form action="{{url_for('profile',limit=5,offset=0,user=user._id)}}" methods="GET">
 		<h6 class="welcome ml-2 mt-1"> Welcome {{ user.first }} </h6>
 		<div class="input-field genre_filter col-8 s12 ml-4">

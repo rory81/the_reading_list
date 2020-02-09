@@ -1,26 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% for genre in genres %}
-<div class="row no-gutters text-align-center mt-5">
-	<div class="col-12 s6">
-		<h3 class="indextitle">{{ genre.genre_name }}</h3>
+<div class="main_row">
+	{% for genre in genres %}
+	<div class="row no-gutters text-align-center mt-5">
+		<div class="col-12 s6">
+			<h3 class="indextitle">{{ genre.genre_name }}</h3>
+		</div>
 	</div>
-</div>
 
 
-{% for book in books if book.genre_name == genre.genre_name %}
-{% if loop.index <=6  %}
+	{% for book in books if book.genre_name == genre.genre_name %}
+	{% if loop.index <=6  %}
 
-<a href="{{url_for('book', book_id=book._id)}}" class="img-holder indexrow">
-	<img src="{{book.picture}}" alt="{{book.title}}">
+	<a href="{{url_for('book', book_id=book._id)}}" class="img-holder indexrow">
+		<img src="{{book.picture}}" alt="{{book.title}}">
         </a>
-	{% endif %}
-	{% endfor %}
+		{% endif %}
+		{% endfor %}
 
 
-	<div class="view_more mt-3"><a href="{{url_for('get_books',limit=5, offset=0,genre_name=genre.genre_name)}}">View More of this Genre</a></div>
-	{% endfor %}
+		<div class="view_more mt-3"><a
+				href="{{url_for('get_books',limit=5, offset=0,genre_name=genre.genre_name)}}">View More of this
+				Genre</a></div>
+		{% endfor %}
 
 
-	{% endblock %}
+		{% endblock %}
+</div>

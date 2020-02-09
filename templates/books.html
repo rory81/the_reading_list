@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row no-gutters">
+<div class="row no-gutters main_row">
 	<form action="{{url_for('get_books',limit=5, offset=0)}}" methods="GET">
 		<div class="input-field genre_filter col-8 s12 ml-4">
 			<select id="genre_name" name="genre_name" onchange="this.form.submit();">
