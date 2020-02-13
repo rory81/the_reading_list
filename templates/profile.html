@@ -71,15 +71,13 @@
 		<a
 			href="{{url_for('profile',limit=5,offset=prv_page,user=user._id,genre_name=request.args.get('genre_name'))}}">
 			<button class="btn mt-4 previous">
-            <i class="material-icons prefix">chevron_left</i>
-            Previous
+            <i class="material-icons prefix">chevron_left chevron_left</i>
             </button>
 		</a>
 		<a
 			href="{{url_for('profile',limit=5,offset=next_page,user=user._id,genre_name=request.args.get('genre_name'))}}">
 			<button class="btn mt-4 next">
-            Next
-            <i class="material-icons prefix">chevron_right</i>
+            <i class="material-icons prefix">chevron_right chevron_right</i>
             </button>
 		</a>
 	</div>

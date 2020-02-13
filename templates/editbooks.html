@@ -74,7 +74,7 @@
 			</div>
 		</div>
 
-        		<div class="col s12">
+		<div class="col s12">
 			<div class="stars text-center" data-rating="{{book.rating}}">
 				<h3 class="title">Add a rating</h3>
 				<span class="star">&nbsp;</span>
@@ -86,10 +86,44 @@
 			</div>
 			</div>
 
-		<button class="btn form right md-2" type="submit">Update Book
+			<button class="btn form right md-2" type="submit">Update Book
             <i class="material-icons prefix">add_box</i>
         </button>
 	</form>
 </div>
+<script>
+	//initial setup
+        document.addEventListener('DOMContentLoaded', function(){
+            let stars = document.querySelectorAll('.star');
+            stars.forEach(function(star){
+                star.addEventListener('click', setRating); 
+            });
+            
+            let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
+            if(document.querySelector('.stars').getAttribute('data-rating') != null){
+                let target = stars[rating - 1];
+                target.dispatchEvent(new MouseEvent('click'));
+            }
+        });
 
+        function setRating(ev){
+            let span = ev.currentTarget;
+            let stars = document.querySelectorAll('.star');
+            let match = false;
+            let num = 0;
+            stars.forEach(function(star, index){
+                if(match){
+                    star.classList.remove('rated');
+                }else{
+                    star.classList.add('rated');
+                }
+                //are we currently looking at the span that was clicked
+                if(star === span){
+                    match = true;
+                    num = index + 1;
+                }
+            });
+            document.querySelector('#rating').setAttribute('value', num);
+        }
+</script>
 {% endblock %}

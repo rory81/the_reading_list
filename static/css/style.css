@@ -160,7 +160,7 @@ button.btn.del {
 /*PAGINATION*/	
 
 .next:hover,.previous:hover{
-    background-color: #4CAF50;
+    background-color: #33CCFF;
     color: white!important;	
 }
 

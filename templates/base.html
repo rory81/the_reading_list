@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="icon" href="{{url_for('static', filename='images/tree_with_books_small.png')}}">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
@@ -44,14 +45,14 @@
 					<li><a href="{{url_for('get_home')}}">Home</a></li>
 					<li><a href="{{url_for('get_books', limit=5, offset=0)}}">All Books</a></li>
 					<li><a href="{{url_for('add_book')}}">Add a Book</a></li>
-                    <li><a href="{{url_for('login')}}">My Books</a></li>
+					<li><a href="{{url_for('login')}}">My Books</a></li>
 
 				</ul>
 				<ul class="sidenav" id="mobile-nav">
 					<li><a href="{{url_for('get_home')}}">Home</a></li>
 					<li><a href="{{url_for('get_books', limit=5, offset=0)}}">All Books</a></li>
 					<li><a href="{{url_for('add_book')}}">Add a Book</a></li>
-                    <li><a href="{{url_for('login')}}">My Books</a></li>
+					<li><a href="{{url_for('login')}}">My Books</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -74,9 +75,8 @@
 		{% block content %}
 		{% endblock %}
 	</div>
-	<script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
 	</script>
@@ -90,40 +90,7 @@
             $('.datepicker').datepicker({format:'mm-dd-yyyy'});
             $(".dropdown-trigger").dropdown();
         });
-        
-        //initial setup star rating 
-        document.addEventListener('DOMContentLoaded', function(){
-            let stars = document.querySelectorAll('.star');
-            stars.forEach(function(star){
-                star.addEventListener('click', setRating); 
-            });
-            
-            let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
-            let target = stars[rating - 1];
-            target.dispatchEvent(new MouseEvent('click'));
-        });
-
-        function setRating(ev){
-            let span = ev.currentTarget;
-            let stars = document.querySelectorAll('.star');
-            let match = false;
-            let num = 0;
-            stars.forEach(function(star, index){
-                if(match){
-                    star.classList.remove('rated');
-                }else{
-                    star.classList.add('rated');
-                }
-                //are we currently looking at the span that was clicked
-                if(star === span){
-                    match = true;
-                    num = index + 1;
-                }
-            });
-            document.querySelector('#rating').setAttribute('value', num);
-        }
-        
-	</script>
+    </script>
 </body>
 
 </html>
