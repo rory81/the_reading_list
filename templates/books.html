@@ -67,16 +67,20 @@
 		</div>
 	</div>
 	<div class="page_buttons mx-auto mt-5">
+        {% if (first_page_limit >= 0) %}
 		<a href="{{url_for('get_books',limit=5,offset=prv_page,genre_name=request.args.get('genre_name'))}}">
 			<button class="btn mt-4 previous">
             <i class="material-icons prefix">chevron_left chevron_left</i>
             </button>
 		</a>
+        {% endif %}
+        {% if (page_limit < sum_books) %}
 		<a href="{{url_for('get_books',limit=5,offset=next_page,genre_name=request.args.get('genre_name'))}}">
 			<button class="btn mt-4 next">
             <i class="material-icons prefix">chevron_right chevron_right</i>
             </button>
 		</a>
+        {% endif %}
 	</div>
 </div>
 {% endblock %}
