@@ -22,12 +22,14 @@
 				<div class="row no-gutters">
 					<div class="container-fluid col-6">
 						<div class="col title-logo">
+                            <!--The name of the site as logo with redirect to home-->
 							<div class="row no-gutters title_line1"><a href="{{url_for('get_home')}}">The</a></div>
 							<div class="row no-gutters title_line2"><a href="{{url_for('get_home')}}">Reading</a></div>
 							<div class="row no-gutters title_line3"><a href="{{url_for('get_home')}}">List</a></div>
 
 						</div>
 					</div>
+                    <!--The picture as logo with redirect to home-->
 					<a href="{{url_for('get_home')}}" class="container-fluid col-6 picture-logo">
 						<img src="{{url_for('static', filename='images/tree_with_books_small.png')}}" alt="tree with books">
                     </a>
@@ -37,6 +39,7 @@
 		</div>
 		<nav>
 			<div class="nav-wrapper">
+                <!--Navigation for larger devices-->
 				<a href="{{url_for('logout')}}" class="logout right  mr-5">Logout</a>
 				<a href="{{url_for('login')}}" class="register right mr-5">Login</a>
 				<a href="{{url_for('get_registered')}}" class="register right mr-5">Register</a>
@@ -48,6 +51,7 @@
 					<li><a href="{{url_for('login')}}">My Books</a></li>
 
 				</ul>
+                <!--Navigation for smaller devices-->
 				<ul class="sidenav" id="mobile-nav">
 					<li><a href="{{url_for('get_home')}}">Home</a></li>
 					<li><a href="{{url_for('get_books', limit=5, offset=0)}}">All Books</a></li>
@@ -57,24 +61,26 @@
 			</div>
 		</nav>
 	</header>
-	<!-- Flashed messages alerts modal -->
+	<!-- setup for flash messages -->
 	<div class="container-fluid">
-		<div class="row col-12 justify-content-center">
+		<div class="row col-12 mt-2 justify-content-center">
 			<div id="messages">
 				{% with messages = get_flashed_messages() %}
 				{% if messages %}
 				{% for message in messages %}
-				<button class="alert-danger">{{ message }}</button>
+				<div class="alert-danger">{{ message }}</div>
 				{% endfor %}
 				{% endif %}
 				{% endwith %}
 			</div>
 		</div>
 	</div>
+    <!--setup for the content for the other HTML templates-->
 	<div class="container">
 		{% block content %}
 		{% endblock %}
 	</div>
+    <!--script links-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
@@ -83,14 +89,13 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
 		integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous">
 	</script>
-	<script type="text/javascript">
+	<script>
 		$(document).ready(function(){
-            $('.sidenav').sidenav();
-            $('select').formSelect();
-            $('.datepicker').datepicker({format:'mm-dd-yyyy'});
-            $(".dropdown-trigger").dropdown();
+            $('.sidenav').sidenav(); //initialization sidenavigation
+            $('select').formSelect(); //initialization to select from the genre dropdown
+            $('.datepicker').datepicker({format:'mm-dd-yyyy'}); //initialization calendar to pick a date
         });
-    </script>
+	</script>
 </body>
 
 </html>

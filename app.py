@@ -143,7 +143,7 @@ def get_registered():
             # If so try to find the user in db
             user = mongo.db.users.find_one({'email': form['email']})
             if user:
-                flash(f'{form["email"]} already exists!')
+                flash("{} already exists!".format(form["email"]))
                 return redirect(url_for('get_registered'))
             # If user does not exist register new user
             else:
@@ -164,10 +164,8 @@ def get_registered():
                 if user_in_db:
                     # Log user in (add to session)
                     session['user'] = user_in_db['email']
-                    return redirect(url_for('profile',
-                                            limit=5,
-                                            offset=0,
-                                            user=user_in_db['email']))
+                    return render_template('addbook.html', books=mongo.db.books.find(),
+                                           genres=mongo.db.genres.find())
                 else:
                     flash('There was a problem saving your profile')
                     return redirect(url_for('get_registered'))
@@ -257,6 +255,13 @@ def profile(limit, offset, user):
         user_in_db = mongo.db.users.find_one(
             {'email': session.get('user')})
         next_page = int(offset)
+        upper_limit=mongo.db.books.find().count()
+        if (int(offset)+int(limit)) < int(upper_limit):
+            next_page = int(offset)+int(limit)
+        if (int(offset)-int(limit)) > 0:
+            prv_page = int(offset)-int(limit)
+        else:
+            prv_page = 0
         if request.args.get('genre_name'):
             upper_limit = mongo.db.books.find({'genre_name': request.args.get(
                 'genre_name'), "user_id": ObjectId(user_in_db['_id'])}).count()
@@ -264,6 +269,10 @@ def profile(limit, offset, user):
                 {"user_id": ObjectId(user_in_db['_id'])})
             if upper_limit == 0:
                 flash('There are no books for this genre!')
+                return redirect(url_for('profile',
+                            limit=5,
+                            offset=0,
+                            user=mongo.db.users.find_one({'email': session['user']})['email']))
             else:
                 results = mongo.db.books.find({'genre_name': request.args.get('genre_name'),
                                                "user_id": ObjectId(user_in_db['_id'])}).sort('author').skip(int(offset)).limit(int(limit))
@@ -272,12 +281,7 @@ def profile(limit, offset, user):
                 {"user_id": ObjectId(user_in_db['_id'])}).count()
             results = mongo.db.books.find({"user_id": ObjectId(user_in_db['_id'])}).sort(
                 'author').skip(int(offset)).limit(int(limit))
-        if (int(offset)+int(limit)) < int(upper_limit):
-            next_page = int(offset)+int(limit)
-        if (int(offset)-int(limit)) > 0:
-            prv_page = int(offset)-int(limit)
-        else:
-            prv_page = 0
+        
         return render_template('profile.html',
                                user=user_in_db,
                                offset=offset,
