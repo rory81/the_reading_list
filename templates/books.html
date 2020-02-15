@@ -37,9 +37,7 @@
                 <!-- show book specifications per book: title, series name, author, genre, publishing date, amazon link-->
 				<div class="col-6 col-md-3 book-content">
 					<div class="row no-gutters row_title">
-						<a href="{{url_for('book', book_id=result._id)}}">
-							<strong>{{result.title}}</strong>
-						</a>
+						<strong>{{result.title}}</strong>
 					</div>
 					<div class="row no-gutters row_series">
 						{{result.series}}
