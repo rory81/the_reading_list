@@ -28,6 +28,7 @@ def get_home():
 # limit is the number of books per page and offset is the index where to start on a certain page
 @app.route('/get_books/<limit>/<offset>', methods=['GET'])
 def get_books(limit, offset):
+    next_page = int(offset)
     # how to get the books for a selected genre
     if request.args.get('genre_name'):
         upper_limit = mongo.db.books.find(
@@ -278,6 +279,7 @@ def profile(limit, offset, user):
         user_in_db = mongo.db.users.find_one(
             {'email': session.get('user')})
         # setup pagination
+        next_page = int(offset)
         upper_limit = mongo.db.books.find().count()
         if (int(offset)+int(limit)) < int(upper_limit):
             next_page = int(offset)+int(limit)
