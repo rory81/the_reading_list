@@ -14,6 +14,8 @@ app.secret_key = os.getenv('SECRET_KEY', 'mongodb://localhost')
 
 mongo = PyMongo(app)
 
+
+@app.route('/')
 # displays the home page
 @app.route('/home')
 def get_home():
