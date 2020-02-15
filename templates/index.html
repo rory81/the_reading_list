@@ -2,6 +2,7 @@
 {% block content %}
 
 <div class="main_row">
+    <!--for loop to make sure books are displayed PER genre-->
 	{% for genre in genres %}
 	<div class="row no-gutters text-align-center mt-5">
 		<div class="col-12 s6">
@@ -9,22 +10,22 @@
 		</div>
 	</div>
 
+        <!--only show the books for which the genre is equal to the genre category from previous for loop show them-->
+        {% for book in books if book.genre_name == genre.genre_name %}
+        <!--but if there are more than 6 books for that genre only show 6 books or less.-->
+        {% if loop.index <=6  %}
+            <a href="{{url_for('book', book_id=book._id)}}" class="img-holder indexrow">
+                <img src="{{book.picture}}" alt="{{book.title}}">
+            </a>
+            {% endif %}
+        {% endfor %}
 
-	{% for book in books if book.genre_name == genre.genre_name %}
-	{% if loop.index <=6  %}
-
-	<a href="{{url_for('book', book_id=book._id)}}" class="img-holder indexrow">
-		<img src="{{book.picture}}" alt="{{book.title}}">
-        </a>
-		{% endif %}
-		{% endfor %}
-
-
-		<div class="view_more mt-3"><a
-				href="{{url_for('get_books',limit=5, offset=0,genre_name=genre.genre_name)}}">View More of this
-				Genre</a></div>
-		{% endfor %}
-
-
-		{% endblock %}
+        <!--If a user wants to see all books for that particular genre the user gets redirected to the book page-->
+        <div class="view_more mt-3">
+            <a href="{{url_for('get_books',limit=5, offset=0,genre_name=genre.genre_name)}}">View More of this
+                    Genre
+            </a>
+        </div>
+	{% endfor %}
 </div>
+{% endblock %}

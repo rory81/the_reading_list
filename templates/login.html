@@ -4,8 +4,10 @@
 	<h3 class="title mx-auto">Welcome Back!</h3>
 </div>
 <div class="row col s9 mt-4">
+    <!--using a form to get the values when the user fills in the form in order to match it to the database-->
 	<form action="{{url_for('user_auth')}}" method="POST" class="col s12">
 		<div class="row">
+            <!--user has to fill in the username which is equal to the users email address-->
 			<div class="input-field col s12">
 				<i class="material-icons circle prefix">email</i>
 				<input id="email" type="email" name="email" class="validate" required>
@@ -13,23 +15,25 @@
 			</div>
 		</div>
 		<div class="row">
+            <!--user has to fill in its password so it can be validated with the hashed password from the database-->
 			<div class="input-field col s12 mt-5">
 				<i class="material-icons circle prefix">https</i>
 				<input id="password" type="password" name="password" class="validate" required>
 				<label for="password">Password</label>
 			</div>
 		</div>
+        <!--if the user doesn't have an account yet the user gets redirected to the register page-->
 		<div class="row no-gutters col-12">
-			<a href="{{url_for('get_registered')}}" alt="Register here if you are new">New here? Create an account!</a>
+			<a href="{{url_for('get_registered')}}">New here? Create an account!</a>
 		</div>
+        <!--if the user has an account but forgot the password, the user gets redirected to a reset password form-->
 		<div class="row no-gutters col-12">
-			<a href="{{url_for('reset_password')}}" alt="Link to reset password" class="reset">Forgot your password?</a>
+			<a href="{{url_for('reset_password')}}" class="reset">Forgot your password?</a>
 		</div>
+        <!--the button to submit the data filled in by user so it can be checked against the values in the database-->
 		<button class="btn form right mt-4" type="submit">Login
             <i class="material-icons prefix">local_library</i>
         </button>
 	</form>
 </div>
-
-
 {% endblock %}

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700|Pacifico:100,200,300,400,500,600,700|Satisfy');
 
+/*BASICS*/
 .main_row{
     margin-bottom: 20px!important;
 }
@@ -88,7 +89,11 @@ h3, h4{
     font-weight: bold;
     font-family: "Satisfy", cursive;
 }
-/*BOOKS*/
+
+/*SETUP THE BOOKS IN HOME PAGE, PER_BOOK PAGE,GET_BOOKS PAGE & PROFILE PAGE*/
+h3.title{
+    margin-top: 42px;
+}
 
 .img-holder img {
   width: 100px;
@@ -141,25 +146,27 @@ button.btn.del {
     border: 1px solid tomato;
     font-family: "Roboto", sans-serif;
 }
-    .btn.del:focus, .btn.del:hover {
-        background-color:red;
-        color: white;
-        border: white;
-   }
 
-       .btn.edit:focus, .btn.edit:hover {
-        background-color:white;
-        color: #5cb85c;
-        border: 1px #5cb85c solid;
-   }
-   .welcome{
-       color:#33CCFF
-   }
+.btn.del:focus, .btn.del:hover {
+    background-color:red;
+    color: white;
+    border: white;
+}
+
+.btn.edit:focus, .btn.edit:hover {
+    background-color:white;
+    color: #5cb85c;
+    border: 1px #5cb85c solid;
+}
+
+.welcome{
+    color:#33CCFF
+}
 
 
 /*PAGINATION*/	
 
-.next:hover,.previous:hover{
+.btn.next:hover, .btn.previous:hover{
     background-color: #33CCFF;
     color: white!important;	
 }
@@ -170,45 +177,48 @@ button.btn.del {
 
 
 /*STAR RATING SYSTEM*/
-        .star{
-          color: goldenrod;
-          font-size: 2.0rem;
-          padding: 0 0.7rem; /* space out the stars */
-        }
-        .star::before{
-          content: '\2606';    /* star outline */
-          cursor: pointer;
-        }
-        .star.rated::before{
-          /* the style for a selected star */
-          content: '\2605';  /* filled star */
-        }
+.star{
+    color: goldenrod;
+    font-size: 2.0rem;
+    padding: 0 0.7rem; /* space out the stars */
+ }
+
+.star::before{
+    content: '\2606';    /* star outline */
+    cursor: pointer;
+}
+
+.star.rated::before{
+    /* the style for a selected star */
+    content: '\2605';  /* filled star */
+    }
         
-        .stars{
-            counter-reset: rateme 0;   
-            font-size: 2.0rem;
-            font-weight: 900;
-        }
-        .star.rated{
-            counter-increment: rateme 1;
-        }
-        .stars::after{
-            content: counter(rateme) '/5';
-            font-family: "Roboto", sans-serif;
-            visibility: hidden;
-            
-        }
+.stars{
+    counter-reset: rateme 0;   
+    font-size: 2.0rem;
+    font-weight: 900;
+}
 
-        .breadcrumb{
-            background-color: white!important;
-            color: #33CCFF;
-        }
+.star.rated{
+    counter-increment: rateme 1;
+}
 
-        .bread_head a{
-            color: grey;
-        }
+.stars::after{
+    content: counter(rateme) '/5';
+    font-family: "Roboto", sans-serif;
+    visibility: hidden;
+}
 
-/*PICTURE GRID*/
+.breadcrumb{
+    background-color: white!important;
+    color: #33CCFF;
+}
+
+.bread_head a{
+    color: grey;
+}
+
+/*PICTURE GRID IN HOME PAGE*/
 
 .indexrow img {
     margin-left: 14px;
@@ -234,35 +244,42 @@ button.btn.form {
     color: white;
     font-family: "Roboto", sans-serif;
 }
-    .btn.form:focus, .btn.form:hover {
-        background-color: white;
-        color:#33CCFF;
-        border: 2px solid #33CCFF;
-   }
-   /* label focus color */
-   .input-field input:focus + label {
-     color:#33CCFF!important;
-     font-weight: bold;
-   }
-   /* label underline focus color */
-   .input-field input:focus {
-     border-bottom: 1px solid #33CCFF!important;
-     box-shadow: 0 1px 0 0 #33CCFF!important;
-   }
-   /* valid color */
-   .input-field input.valid {
-     border-bottom: 1px solid #33CCFF!important;
-     box-shadow: 0 1px 0 0 #33CCFF!important;
-   }
-   /* invalid color */
-   .input-field input[type=text].invalid {
-     border-bottom: 1px solid red!important;
-     box-shadow: 0 1px 0 0 red!important;
-   }
-   /* icon prefix focus color */
-   .input-field .prefix {
-     color: #33CCFF!important;
-   }
+
+.btn.form:focus, .btn.form:hover {
+    background-color: white;
+    color:#33CCFF;
+    border: 2px solid #33CCFF;
+}
+
+/* label focus color */
+.input-field input:focus + label {
+    color:#33CCFF!important;
+    font-weight: bold;
+}
+
+/* label underline focus color */
+.input-field input:focus {
+    border-bottom: 1px solid #33CCFF!important;
+    box-shadow: 0 1px 0 0 #33CCFF!important;
+}
+
+/* valid color */
+.input-field input.valid {
+    border-bottom: 1px solid #33CCFF!important;
+    box-shadow: 0 1px 0 0 #33CCFF!important;
+}
+
+/* invalid color */
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid red!important;
+    box-shadow: 0 1px 0 0 red!important;
+}
+
+/* icon prefix focus color */
+.input-field .prefix {
+    color: #33CCFF!important;
+}
+
 .form_book{
     margin: 0px 30px!important;
 }
@@ -407,6 +424,9 @@ a.edit_icon, a.delete_icon{
 
 
 @media (min-width:1206px) {
+h3.title{
+    margin-top: 0px;
+}
 
 .picture-logo img{
     max-width: 25%;
@@ -470,6 +490,7 @@ a.edit_icon, a.delete_icon{
     margin-left: 120px;
 }
 }
+
 @media (min-width:1600px) {
 .sidenav.sidenav-fixed{
     transform:translate(0px,264px)!important;

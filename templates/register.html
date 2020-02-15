@@ -4,19 +4,23 @@
 	<h3 class="title mx-auto">Create Account</h3>
 </div>
 <div class="row col s9 main_row mt-4">
+    <!--using a form to get the values when the user fills in the form to save it to the database-->
 	<form action="{{url_for('get_registered')}}" method="POST" class="col s12">
 		<div class="row">
+            <!--user has to fill in his first name-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">account_box</i>
 				<input id="first" type="text" name="first" class="validate" required>
 				<label for="first">First Name*</label>
 			</div>
+            <!--user has to fill in his last name-->
 			<div class="input-field col s12">
 				<input id="last" type="text" name="last" class="validate" required>
 				<label for="last">Last Name*</label>
 			</div>
 		</div>
 		<div class="row">
+            <!--user has to fill in his email address, which will be its username going forward-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">email</i>
 				<input id="email" type="email" name="email" class="validate" required>
@@ -24,6 +28,7 @@
 			</div>
 		</div>
 		<div class="row">
+            <!--user has to set his password, which will be hashed before saved to the database-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">https</i>
 				<input id="password" type="password" name="password" class="validate" required>
@@ -31,23 +36,25 @@
 			</div>
 		</div>
 		<div class="row">
+            <!--user has to re-enter its password to make sure their aren't any typo's-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">https</i>
 				<input id="password_2" type="password" name="password_2" class="validate" required>
 				<label for="password_2">Re-enter Password*</label>
 			</div>
 		</div>
-		<p class="required right">* Required field</p>
+		<!--to let the user know what the required field are to fill in-->
+        <p class="required right">* Required field</p>
+        <!--if the user already has an account the user gets redirected to the login page-->
 		<div class="row no-gutters col-12">
-			<a href="{{url_for('login')}}" alt="Login if you are already registered">Already a user? You can login
+			<a href="{{url_for('login')}}">Already a user? You can login
 				here!</a>
 		</div>
+        <!--the button to submit the data filled in by user so it can be saved to the database-->
 		<button class="btn form right mt-4" type="submit">Create
             <i class="material-icons prefix">add_box</i>
         </button>
 	</form>
 
 </div>
-
-
 {% endblock %}

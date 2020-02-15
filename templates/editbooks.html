@@ -2,12 +2,12 @@
 {% block content %}
 <div class="row no-gutters col-12 mx-auto mt-5">
 	<h3 class="title mx-auto">Update a Book</h3>
-	<!--<a href="#" class="material-icons prefix right edit_icon">create</a> -->
-
 </div>
 <div class="row main_row mt-4">
+	<!--Using a form identical to the one to add a book, but pre-filled with the values of this specific book from the database-->
 	<form action="{{url_for('update_book', book_id=book._id)}}" method="POST" class="form_book col s12">
 		<div class="row">
+			<!--Field for book title-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">import_contacts</i>
 				<input id="title" type="text" name="title" class="validate" required value="{{book.title}}">
@@ -15,6 +15,7 @@
 			</div>
 		</div>
 		<div class="row">
+			<!--Field for book author-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">account_box</i>
 				<input id="author" type="text" name="author" class="validate" required value="{{book.author}}">
@@ -22,6 +23,7 @@
 			</div>
 		</div>
 		<div class="row">
+			<!--Optional dropdown to select a book genre-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">art_track</i>
 				<select id="genre" name="genre_name">
@@ -37,6 +39,7 @@
 			</div>
 		</div>
 		<div class="row">
+			<!--Optional field for book serie name-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">linear_scale</i>
 				<input id="series" type="text" name="series" class="validate" value="{{book.series}}">
@@ -44,6 +47,7 @@
 			</div>
 		</div>
 		<div class="row">
+			<!--Field for calendar to pick a publishing date-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">today</i>
 				<input id="published" type="text" name="published" class="datepicker" required value="{{book.published}}">
@@ -51,6 +55,7 @@
 			</div>
 		</div>
 		<div class="row">
+			<!--Field for amazon link so other people can buy the book-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">public</i>
 				<input id="amazon" type="text" name="amazon" class="validate" required value="{{book.amazon}}">
@@ -58,6 +63,7 @@
 			</div>
 		</div>
 		<div class="row">
+			<!--Field for book description-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">library_books</i>
 				<input id="description" type="text" name="description" class="validate" required value="{{book.description}}">
@@ -65,14 +71,17 @@
 			</div>
 		</div>
 		<div class="row">
+			<!--Field for book cover picture-->
 			<div class="input-field col s12">
 				<i class="material-icons prefix">add_a_photo</i>
 				<input id="picture" type="url" name="picture" class="validate" required value="{{book.picture}}">
 				<label for="picture">Picture*</label>
 			</div>
 		</div>
-
+		<!--making sure the user knows which fields are required-->
+		<p class="required right">* Required field</p>
 		<div class="col s12">
+			<!--The stars for the star rating-->
 			<div class="stars text-center" data-rating="{{book.rating}}">
 				<h3 class="title">Add a rating</h3>
 				<span class="star">&nbsp;</span>
@@ -80,17 +89,21 @@
 				<span class="star">&nbsp;</span>
 				<span class="star">&nbsp;</span>
 				<span class="star">&nbsp;</span>
+				<!--coded as input field so it will be saved in database, but hid the inputfield line-->
 				<input id="rating" type="number" name="rating" value="{{book.rating}}" readonly hidden>
 			</div>
 			</div>
-
+			<!--Button to submit the info to the database-->
 			<button class="btn form right md-2" type="submit">Update Book
             <i class="material-icons prefix">add_box</i>
         </button>
 	</form>
 </div>
 <script>
-	//initial setup
+	//added the underlining code to relevant templates and not to the base.html,
+    //because when the stars are not used on a page it will give a "Uncaught TypeError: Cannot read property 'getAttribute' of null".
+
+	//initial setup star rating
         document.addEventListener('DOMContentLoaded', function(){
             let stars = document.querySelectorAll('.star');
             stars.forEach(function(star){
@@ -103,7 +116,7 @@
                 target.dispatchEvent(new MouseEvent('click'));
             }
         });
-
+        //set the rating by adding or removing filled stars
         function setRating(ev){
             let span = ev.currentTarget;
             let stars = document.querySelectorAll('.star');
@@ -121,7 +134,7 @@
                     num = index + 1;
                 }
             });
-            document.querySelector('#rating').setAttribute('value', num);
+            document.querySelector('#rating').setAttribute('value', num);//needed to save the rating (to database)
         }
 </script>
 {% endblock %}
