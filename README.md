@@ -1,9 +1,9 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/rory81/the_reading_list) 
 
-<img src="{{url_for('static', filename='images/tree_with_books_small.png')}}" data-canonical-src="{{url_for('static', filename='images/tree_with_books_small.png')}}" width="200" height="400" />
+<img src="{{url_for('static', filename='images/tree_with_books_small.png')}}">
 
 # The Reading List
-###### Disclaimer: *this dashboard is made for educational use only.*
+###### Disclaimer: *this app is made for educational use only.*
 The current book apps have a lot of commercials, all books have many genres making it impossible to get an idea about what the book is really about.
 The books that get automatically chosen are the books with the highest rating, eventhough those do not necesarily are the best books.
 It is like the movies, when there are a lot of famous actors or have won many oscars the changes are high that I am not going to like the movie.
