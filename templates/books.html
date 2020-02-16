@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row no-gutters main_row">
-    <!-- using a form to get the genre value for the dropdown in small devices-->
+	<!-- using a form to get the genre value for the dropdown in small devices-->
 	<form action="{{url_for('get_books',limit=5, offset=0)}}">
 		<div class="input-field genre_filter col-8 s12 ml-4">
 			<select id="genre_name" name="genre_name" onchange="this.form.submit();">
@@ -11,7 +11,7 @@
                 {% endfor %}
             </select>
 		</div>
-        <!-- using a form to get the genre value for the sidenav in bigger devices-->
+		<!-- using a form to get the genre value for the sidenav in bigger devices-->
 		<ul id="sidenav-1" class="sidenav sidenav-fixed d-none d-xl-block">
 			{{genres.genre_name}} <li><a class="subheader">Genres</a></li>
 			{% for genre in genres %}
@@ -26,63 +26,65 @@
 			<h3 class="title mx-auto">The Collection of Books</h3>
 		</div>
 		<div class="row no-gutters col-12 mt-3">
-            <!-- result is the number and genre type of books depending on user choice of filter-->
-			{% for result in results %} 
-            <!-- show book cover picture per book-->
+			<!-- result is the number and genre type of books depending on user choice of filter-->
+			{% for result in results %}
+			<!-- show book cover picture per book-->
 			<div class="col-4 col-md-3 book-picture">
-				<div class="img-holder">
+				<a href="{{url_for('book_no_edit', book_id=result._id)}}" class="img-holder">
 					<img src="{{result.picture}}" alt="{{result.title}}">
-                    </div>
-				</div>
-                <!-- show book specifications per book: title, series name, author, genre, publishing date, amazon link-->
-				<div class="col-6 col-md-3 book-content">
-					<div class="row no-gutters row_title">
-						<strong>{{result.title}}</strong>
-					</div>
-					<div class="row no-gutters row_series">
-						{{result.series}}
-					</div>
-					<div class="row no-gutters row_author mt-2">
-						<strong><i>{{result.author}}</i></strong>
-					</div>
-					<div class="row no-gutters row_genre mt-2">
-						{{result.genre_name}}
-					</div>
-
-					<div class="row no-gutters row_published mt-2">
-						<i>Published: {{result.published}}</i>
-					</div>
-					<div class="row no-gutters row_amazon mt-2">
-						<a href="{{result.amazon}}" target="_blank">Buy on Amazon.com</a>
-					</div>
-				</div>
-                <!-- show personal rating of this book-->
-				<div class="col-2 col-md-1 book_rating">
-					<i class="material-icons star_icon">star</i>
-					<p><strong>{{result.rating}}</strong></p>
-				</div>
-                <!-- show short book description-->
-				<div class="col-md-5 d-none d-sm-block book_description">
-					<div class="row no-gutters">
-						<p class="row_description"><strong><i>Book description</i></strong></p>
-						{{result.description}}
-					</div>
-				</div>
-				{% endfor %}
+                </a>
 			</div>
-		</div>
-        <!-- pagination buttons: previous & next button-->
-		<div class="page_buttons mx-auto mt-5">
-			{% if (first_page_limit >= 0) %}
-			<button onclick="window.location.href='{{url_for('get_books',limit=5,offset=prv_page,genre_name=request.args.get('genre_name'))}}'" class="btn mt-4 previous">
-                <i class="material-icons prefix">chevron_left chevron_left</i>
-            </button>
-			{% endif %}
-			{% if (page_limit < sum_books) %}
-            <button onclick="window.location.href='{{url_for('get_books',limit=5,offset=next_page,genre_name=request.args.get('genre_name'))}}'" class="btn mt-4 next">
-                <i class="material-icons prefix">chevron_right chevron_right</i>
-            </button>
-			{% endif %}
+			<!-- show book specifications per book: title, series name, author, genre, publishing date, amazon link-->
+			<div class="col-6 col-md-3 book-content">
+				<div class="row no-gutters row_title">
+					<a href="{{url_for('book_no_edit', book_id=result._id)}}">
+						<strong>{{result.title}}</strong>
+					</a>
+				</div>
+				<div class="row no-gutters row_series">
+					{{result.series}}
+				</div>
+				<div class="row no-gutters row_author mt-2">
+					<strong><i>{{result.author}}</i></strong>
+				</div>
+				<div class="row no-gutters row_genre mt-2">
+					{{result.genre_name}}
+				</div>
+
+				<div class="row no-gutters row_published mt-2">
+					<i>Published: {{result.published}}</i>
+				</div>
+				<div class="row no-gutters row_amazon mt-2">
+					<a href="{{result.amazon}}" target="_blank">Buy on Amazon.com</a>
+				</div>
+			</div>
+			<!-- show personal rating of this book-->
+			<div class="col-2 col-md-1 book_rating">
+				<i class="material-icons star_icon">star</i>
+				<p><strong>{{result.rating}}</strong></p>
+			</div>
+			<!-- show short book description-->
+			<div class="col-md-5 d-none d-sm-block book_description">
+				<div class="row no-gutters">
+					<p class="row_description"><strong><i>Book description</i></strong></p>
+					{{result.description}}
+				</div>
+			</div>
+			{% endfor %}
 		</div>
 	</div>
-	{% endblock %}
+	<!-- pagination buttons: previous & next button-->
+	<div class="page_buttons mx-auto mt-5">
+		{% if (first_page_limit >= 0) %}
+		<button onclick="window.location.href='{{url_for('get_books',limit=5,offset=prv_page,genre_name=request.args.get('genre_name'))}}'" class="btn mt-4 previous">
+                <i class="material-icons prefix">chevron_left chevron_left</i>
+            </button>
+		{% endif %}
+		{% if (page_limit < sum_books) %}
+		<button onclick="window.location.href='{{url_for('get_books',limit=5,offset=next_page,genre_name=request.args.get('genre_name'))}}'" class="btn mt-4 next">
+                <i class="material-icons prefix">chevron_right chevron_right</i>
+            </button>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

@@ -133,10 +133,19 @@ def insert_book():
 # books added can individually be shown by selecting the cover picture or the book title
 # this route makes the buttons available to edit/update or delete a book
 # only books on the profile page can be seen as that are the only books a user should be autorized to update/delete
-@app.route('/book/<book_id>')
+@app.route('/book_edit/<book_id>')
 def book(book_id):
     the_book = mongo.db.books.find_one({'_id': ObjectId(book_id)})
     return render_template('per_book.html', book=the_book)
+
+
+# books added can individually be shown by selecting the cover picture or the book title
+# difference with the previous route is that this doesn't have the buttons available to edit/update or delete a book
+# only books on the profile page can be seen as that are the only books a user should be autorized to update/delete
+@app.route('/book/<book_id>')
+def book_no_edit(book_id):
+    the_book = mongo.db.books.find_one({'_id': ObjectId(book_id)})
+    return render_template('per_book_no_edit.html', book=the_book)
 
 
 # this route will make it possible to delete a book from the database
