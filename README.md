@@ -274,7 +274,20 @@ The only thing left to do is to specify the IP and port by adding them as config
 Now that it is all setup click the button 'Open app' and the app is deployed.
 If a "404 Not Found" appears it is probably due to a missing @app.route('/'). After @app.route('/') come the routes needed to make this website work.
 
-To run locally, this repository can be cloned directly into the editor of your choice by pasting git clone https://github.com/rory81/the_reading_list.git into your terminal. To cut ties with this GitHub repository, type git remote rm origin into the terminal.
+## Run Locally
+To run locally, this repository can be cloned directly into the editor of your choice by pasting git clone  into your terminal. To cut ties with this GitHub repository, type git remote rm origin into the terminal.
+
+The underlining steps are needed to clone this GitHub repository to another local repository:
+
+**Step 1:** navigate to the repository for this Reading List (login needed) *https://github.com/rory81/the_reading_list*
+
+**Step 2:** click on the green button saying **Clone or download**
+
+**Step 3:** In the Clone with HTTPs section, copy the clone URL (https://github.com/rory81/the_reading_list.git) for the repository
+
+**Step 4:** Go to the IDE that you are using (like for instance Gitpod) and open the terminal
+
+**Step 5:** Type `git clone [URL]`. For [URL] fill in the URL that was copied in step 3 and press Enter
 
 ## Testing
 1. The pages are validated using:
@@ -363,6 +376,10 @@ and the Heroku site for a more detailed explanation of some terminology used by 
 
 - https://github.com/MiroslavSvec/DCD_lead (register/login/hashing password)
 
-- my mentor for challenging me and helping when needed.
+- my mentor, Maranatha Ilesanmi,for challenging me and helping when needed.
 
 - people on slack, a few in particular, who helped me when I was ready to throw in the towel.
+
+- tutors from Code Institute for helping and sparring
+
+- Friend of my to give me some basics for python
