@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row no-gutters col-12 mx-auto mt-5">
+	<!--Gives the title for the selected book-->
+	<h3 class="title mx-auto">{{book.title}}</h3>
+	<div class="col-12">
+	</div>
+</div>
+<div class="row no-gutters col-12 main_row mt-5">
+	<!--Gives the book cover picture for the selected book and the amazon link underneath it-->
+	<div class="col-12 col-md-4 single_book_picture  text-center">
+		<img src="{{book.picture}}" alt="{{book.title}}">
+		<div class="mt-3">
+			<a href="{{book.amazon}}" target="_blank">Buy on Amazon.com</a>
+		</div>
+	</div>
+
+	<div class="col-12 col-md-8 mx-auto">
+		<div class="collection">
+			<!--Gives the book desciption for the selected book-->
+			<i class="material-icons prefix">import_contacts</i>
+			<p class="collection-item"><strong>Book Description: </strong></p>
+			<p class="collection-item">{{book.description}}</p>
+			<p class="collection-item"><strong>Author: </strong>{{book.author}}</p>
+            <p class="collection-item"><strong>Genre: </strong>{{book.genre_name}}</p>
+		</div>
+	</div>
+</div>
+{% endblock %}

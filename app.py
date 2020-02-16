@@ -20,7 +20,7 @@ mongo = PyMongo(app)
 @app.route('/home')
 def get_home():
     return render_template('index.html', genres=mongo.db.genres.find(),
-                           books=list(mongo.db.books.find()))
+                           books=list(mongo.db.books.find().sort('_id', -1)))
 
 
 # displays all the books ever added by users and all books are visible to all users
@@ -34,10 +34,11 @@ def get_books(limit, offset):
         upper_limit = mongo.db.books.find(
             {'genre_name': request.args.get('genre_name')}).count()
         results = mongo.db.books.find(
-            {'genre_name': request.args.get('genre_name')}).sort('author').skip(int(offset)).limit(int(limit))
+            {'genre_name': request.args.get('genre_name')}).sort('_id', -1).skip(int(offset)).limit(int(limit))
     else:
         upper_limit = mongo.db.books.count()
-        results = mongo.db.books.find().sort('author').skip(int(offset)).limit(int(limit))
+        results = mongo.db.books.find().sort(
+            '_id', -1).skip(int(offset)).limit(int(limit))
     # setup pagination
     if (int(offset)+int(limit)) < int(upper_limit):
         next_page = int(offset)+int(limit)
@@ -310,12 +311,12 @@ def profile(limit, offset, user):
                                         user=mongo.db.users.find_one({'email': session['user']})['email']))
             else:
                 results = mongo.db.books.find({'genre_name': request.args.get('genre_name'),
-                                               "user_id": ObjectId(user_in_db['_id'])}).sort('author').skip(int(offset)).limit(int(limit))
+                                               "user_id": ObjectId(user_in_db['_id'])}).sort('_id', -1).skip(int(offset)).limit(int(limit))
         else:
             upper_limit = mongo.db.books.find(
                 {"user_id": ObjectId(user_in_db['_id'])}).count()
             results = mongo.db.books.find({"user_id": ObjectId(user_in_db['_id'])}).sort(
-                'author').skip(int(offset)).limit(int(limit))
+                '_id', -1).skip(int(offset)).limit(int(limit))
 
         return render_template('profile.html',
                                user=user_in_db,
