@@ -1,6 +1,6 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/rory81/the_reading_list) 
 
-<img src="{{url_for('static', filename='images/tree_with_books_small.png')}}">
+<img src="./static/images/tree_with_books_small.png">
 
 # The Reading List
 ###### Disclaimer: *this app is made for educational use only.*
@@ -15,6 +15,8 @@ The user can see what other books are added by other users and use the link to b
 Before going into the user stories it should be noted that a future feature should be to connect to an excisting database of books.
 That way the user doesn't have to fill in the books manually. But for now it is a good way to implement the C (create) from the CRUD principle.
 
+The mockups are in the folder static/mockups and presented as png files.
+Deviation was mostly additions like the change password and making two pages for the editbook page, one with and one without edit/delete buttons
 
 ### **Home**
 They say don't judge a book by its cover, but there are readers that pick a book based on how pretty, weird or scary the cover looks.
