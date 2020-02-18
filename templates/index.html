@@ -22,7 +22,7 @@
 
         <!--If a user wants to see all books for that particular genre the user gets redirected to the book page-->
         <div class="view_more mt-3">
-            <a href="{{url_for('get_books',limit=5, offset=0,genre_name=genre.genre_name)}}">View More of this
+            <a href="{{url_for('get_books',offset=0,genre_name=genre.genre_name)}}">View More of this
                     Genre
             </a>
         </div>

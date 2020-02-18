@@ -2,8 +2,7 @@
 {% block content %}
 <div class="row no-gutters main_row">
     <!-- using a form to get the genre value for the dropdown in small devices-->
-	<form action="{{url_for('profile',limit=5,offset=0,user=user._id)}}">
-		<h6 class="welcome ml-2 mt-1"> Welcome {{ user.first }} </h6>
+	<form action="{{url_for('profile',offset=0, user_id=session.get('user'))}}">
 		<div class="input-field genre_filter col-8 s12 ml-4">
 			<select id="genre_name" name="genre_name" onchange="this.form.submit();">
                 <option value="" disabled selected>Choose Genre</option>
@@ -17,14 +16,14 @@
 			{{genres.genre_name}} <li><a class="subheader">Genres</a></li>
 			{% for genre in genres %}
 			<li><a
-					href="{{url_for('profile',limit=5, offset=0,user=user._id,genre_name=genre.genre_name)}}">{{ genre.genre_name }}</a>
+					href="{{url_for('profile', offset=0, user_id=session.get('user'),genre_name=genre.genre_name)}}">{{ genre.genre_name }}</a>
 			</li>
 			{% endfor %}
 		</ul>
 	</form>
 	<div class="col-12">
 		<div class="row no-gutters col-12 mx-auto">
-			<h3 class="title mx-auto">The Collection of Books</h3>
+			<h3 class="title mx-auto">My Collection of Books</h3>
 		</div>
 		<div class="row no-gutters col-12 mt-3">
             <!-- result is the number and genre type of books depending on user choice of filter for a particular users books-->
@@ -76,13 +75,13 @@
 	</div>
 	<!-- pagination buttons: previous & next button-->
 	<div class="page_buttons mx-auto mt-5">
-		{% if (first_page_limit >= 0) %}
-		<button onclick="window.location.href='{{url_for('profile',limit=5,offset=prv_page,user=user._id,genre_name=request.args.get('genre_name'))}}'" class="btn mt-4 previous">
+		{% if prv_page >= limit %}
+		<button onclick="window.location.href='{{url_for('profile',offset=prv_page,genre_name=request.args.get('genre_name'))}}'" class="btn mt-4 previous">
             <i class="material-icons prefix">chevron_left chevron_left</i>
         </button>
 		{% endif %}
 		{% if (page_limit < sum_books) %}
-		<button onclick="window.location.href='{{url_for('profile',limit=5,offset=next_page,user=user._id,genre_name=request.args.get('genre_name'))}}'" class="btn mt-4 next">
+		<button onclick="window.location.href='{{url_for('profile',offset=next_page,genre_name=request.args.get('genre_name'))}}'" class="btn mt-4 next">
             <i class="material-icons prefix">chevron_right chevron_right</i>
         </button>
 		{% endif %}

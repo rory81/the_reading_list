@@ -24,35 +24,48 @@ def get_home():
 
 
 def get_book_content(offset, user_id=None):
-    next_page = int(offset)
     limit = 5
     # how to get the books for a selected genre
+    upper_limit = mongo.db.books.count()
+    results = mongo.db.books.find().sort(
+        '_id', -1).skip(int(offset)).limit(int(limit))
+    print(upper_limit)
+    if 'user' in session:
+        # If so get the user
+        user_id = mongo.db.users.find_one(
+            {'_id': ObjectId(session.get('user'))})
+        upper_limit_profile = mongo.db.books.find(
+            {'user_id': ObjectId(user_id['_id'])}).count()
+        results_profile = mongo.db.books.find({"user_id": ObjectId(user_id['_id'])}).sort(
+            '_id', -1).skip(int(offset)).limit(int(limit))
+        if request.args.get('genre_name'):
+            upper_limit_profile = mongo.db.books.find(
+                {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id['_id'])}).count()
+            if upper_limit_profile == 0:
+                flash('There are no books for this genre!')
+                results_profile = mongo.db.books.find({"user_id": ObjectId(user_id['_id'])}).sort(
+                    '_id', -1).skip(int(offset)).limit(int(limit))
+            else:
+                results_profile = mongo.db.books.find(
+                    {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id['_id'])}).sort('_id', -1).skip(int(offset)).limit(int(limit))
+    else:
+        flash('You must be logged in to view a profile')
+        return redirect(url_for('get_home'))
+    # choose genre
     if request.args.get('genre_name'):
         upper_limit = mongo.db.books.find(
             {'genre_name': request.args.get('genre_name')}).count()
         results = mongo.db.books.find(
             {'genre_name': request.args.get('genre_name')}).sort('_id', -1).skip(int(offset)).limit(int(limit))
-    else:
-        upper_limit = mongo.db.books.count()
-        results = mongo.db.books.find().sort(
-            '_id', -1).skip(int(offset)).limit(int(limit))
-    # setup pagination
-    if (int(offset)+int(limit)) < int(upper_limit):
-        next_page = int(offset)+int(limit)
-    if (int(offset)-int(limit)) > 0:
-        prv_page = int(offset)-int(limit)
-    else:
-        prv_page = 0
     return {
         'offset': offset,
-        'page_limit': int(offset)+int(limit),
-        'first_page_limit': int(offset)-int(limit),
-        'sum_books': int(upper_limit),
+        'upper_limit': upper_limit,
+        'upper_limit_profile': upper_limit_profile,
         'results': results,
-        'next_page': next_page,
-        'prv_page': prv_page,
+        'results_profile': results_profile,
         'genres': list(mongo.db.genres.find())
     }
+
 
 # displays all the books ever added by users and all books are visible to all users
 # with or without an account
@@ -60,30 +73,49 @@ def get_book_content(offset, user_id=None):
 @app.route('/get_books/<offset>', methods=['GET'])
 def get_books(offset):
     books = get_book_content(offset)
+    next_page = int(offset)
+    limit = 5
+    upper_limit = books['upper_limit']
+    # setup pagination
+    if (int(offset)+int(limit)) < int(upper_limit):
+        next_page = int(offset)+int(limit)
+    if (int(offset)-int(limit)) > 0:
+        prv_page = int(offset)-int(limit)
+    else:
+        prv_page = 0
     return render_template('books.html',
+                           limit=int(limit),
                            offset=books['offset'],
-                           page_limit=books['page_limit'],
-                           first_page_limit=books['first_page_limit'],
-                           sum_books=books['sum_books'],
+                           page_limit=int(offset)+int(limit),
+                           sum_books=int(upper_limit),
                            results=books['results'],
-                           next_page=books['next_page'],
-                           prv_page=books['prv_page'],
+                           next_page=next_page,
+                           prv_page=prv_page,
                            genres=books['genres'])
 
 
 @app.route('/profile/<offset>', methods=['GET'])
 def profile(offset):
-    books = get_book_content(offset)
+    books = get_book_content(offset, session.get('user'))
+    next_page = int(offset)
+    limit = 5
+    upper_limit = books['upper_limit_profile']
+    # setup pagination
+    if (int(offset)+int(limit)) < int(upper_limit):
+        next_page = int(offset)+int(limit)
+    if (int(offset)-int(limit)) >= 0:
+        prv_page = int(offset)-int(limit)
+    else:
+        prv_page = 0
     return render_template('profile.html',
                            offset=books['offset'],
-                           page_limit=books['page_limit'],
-                           first_page_limit=books['first_page_limit'],
-                           sum_books=books['sum_books'],
-                           results=books['results'],
-                           next_page=books['next_page'],
-                           prv_page=books['prv_page'],
+                           limit=int(limit),
+                           page_limit=int(offset)+int(limit),
+                           sum_books=int(upper_limit),
+                           results=books['results_profile'],
+                           next_page=next_page,
+                           prv_page=prv_page,
                            genres=books['genres'])
-
 
 
 # this route takes the user to the form that makes it possible to update/change the specifics for that particular book
@@ -121,12 +153,12 @@ def update_book(book_id):
             'picture': request.form.get('picture'),
             'rating': request.form.get('rating'),
             'user_id': mongo.db.users.find_one(
-                {'email': session.get('user')})['_id']
+                {'_id': ObjectId(session.get('user'))})['_id']
         }
     )
     return redirect(url_for('profile',
                             offset=0,
-                            user=mongo.db.users.find_one({'email': session['user']})['email']))
+                            user=mongo.db.users.find_one({'_id': ObjectId(session['user'])})['_id']))
 
 
 # because this app isn't yet linked to a database of existing books (feature for the future)
@@ -150,11 +182,11 @@ def insert_book():
     books = mongo.db.books
     new_book = request.form.to_dict()
     new_book['user_id'] = mongo.db.users.find_one(
-        {'email': session.get('user')})['_id']
+        {'_id': ObjectId(session.get('user'))})['_id']
     books.insert_one(new_book)
     return redirect(url_for('profile',
                             offset=0,
-                            user=mongo.db.users.find_one({'email': session['user']})['email']))
+                            user=mongo.db.users.find_one({'_id': ObjectId(session['user'])})['_id']))
 
 
 # books added can individually be shown by selecting the cover picture or the book title
@@ -181,7 +213,7 @@ def delete_book(book_id):
     mongo.db.books.remove({'_id': ObjectId(book_id)})
     return redirect(url_for('profile',
                             offset=0,
-                            user=mongo.db.users.find_one({'email': session['user']})['email']))
+                            user=mongo.db.users.find_one({'_id': ObjectId(session['user'])})['_id']))
 
 
 # this route will lead to the form for the user to enter its user data to make an account
@@ -213,17 +245,18 @@ def get_registered():
                         'password': hash_pass
                     }
                 )
-                # Check if user is actualy saved
-                user_in_db = mongo.db.users.find_one(
-                    {'email': form['email']})
-                if user_in_db:
-                    # Log user in (add to session)
-                    session['user'] = user_in_db['email']
-                    return render_template('addbook.html', books=mongo.db.books.find(),
-                                           genres=mongo.db.genres.find())
-                else:
-                    flash('There was a problem saving your profile')
-                    return redirect(url_for('get_registered'))
+            # Check if user is actualy saved
+            user_in_db = mongo.db.users.find_one(
+                {'email': form['email']})
+            if user_in_db:
+                user_id = str(user_in_db['_id'])
+                # Log user in (add to session)
+                session['user'] = user_id
+                return render_template('addbook.html', books=mongo.db.books.find(),
+                                       genres=mongo.db.genres.find())
+            else:
+                flash('There was a problem saving your profile')
+                return redirect(url_for('get_registered'))
         else:
             flash('Warning! Passwords dont match!')
             return redirect(url_for('get_registered'))
@@ -251,9 +284,9 @@ def login():
 def user_auth():
     form = request.form.to_dict()
     user_in_db = mongo.db.users.find_one({'email': form['email']})
-    user_id= str(user_in_db['_id'])
     # Check for user in databases
     if user_in_db:
+        user_id = str(user_in_db['_id'])
         # If passwords match (hashed / real password)
         if check_password_hash(user_in_db['password'], form['password']):
             # Log user in (add to session)
