@@ -4,8 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Underlining extended viewport content was needed to get the dropdowns working on the mobile version-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
+	<!--Underlining extended viewport content was needed to get the dropdowns working on the mobile version-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="icon" href="{{url_for('static', filename='images/tree_with_books_small.png')}}">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -23,14 +23,14 @@
 				<div class="row no-gutters">
 					<div class="container-fluid col-6">
 						<div class="col title-logo">
-                            <!--The name of the site as logo with redirect to home-->
+							<!--The name of the site as logo with redirect to home-->
 							<div class="row no-gutters title_line1"><a href="{{url_for('get_home')}}">The</a></div>
 							<div class="row no-gutters title_line2"><a href="{{url_for('get_home')}}">Reading</a></div>
 							<div class="row no-gutters title_line3"><a href="{{url_for('get_home')}}">List</a></div>
 
 						</div>
 					</div>
-                    <!--The picture as logo with redirect to home-->
+					<!--The picture as logo with redirect to home-->
 					<a href="{{url_for('get_home')}}" class="container-fluid col-6 picture-logo">
 						<img src="{{url_for('static', filename='images/tree_with_books_small.png')}}" alt="tree with books">
                     </a>
@@ -40,10 +40,13 @@
 		</div>
 		<nav>
 			<div class="nav-wrapper">
-                <!--Navigation for larger devices-->
-				<a href="{{url_for('logout')}}" class="logout right  mr-5">Logout</a>
-				<a href="{{url_for('login')}}" class="register right mr-5">Login</a>
-				<a href="{{url_for('get_registered')}}" class="register right mr-5">Register</a>
+				<!--Navigation for larger devices-->
+				{% if 'user' in session %}
+				    <a href="{{url_for('logout')}}" class="logout right  mr-5">Logout</a>
+				{% else %}
+				    <a href="{{url_for('login')}}" class="register right mr-5">Login</a>
+				    <a href="{{url_for('get_registered')}}" class="register right mr-5">Register</a>
+				{% endif %}
 				<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul id="nav-mobile" class="left ml-3 hide-on-med-and-down">
 					<li><a href="{{url_for('get_home')}}">Home</a></li>
@@ -52,7 +55,7 @@
 					<li><a href="{{url_for('login')}}">My Books</a></li>
 
 				</ul>
-                <!--Navigation for smaller devices-->
+				<!--Navigation for smaller devices-->
 				<ul class="sidenav" id="mobile-nav">
 					<li><a href="{{url_for('get_home')}}">Home</a></li>
 					<li><a href="{{url_for('get_books', limit=5, offset=0)}}">All Books</a></li>
@@ -76,12 +79,12 @@
 			</div>
 		</div>
 	</div>
-    <!--setup for the content for the other HTML templates-->
+	<!--setup for the content for the other HTML templates-->
 	<div class="container">
 		{% block content %}
 		{% endblock %}
 	</div>
-    <!--script links-->
+	<!--script links-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
