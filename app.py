@@ -26,37 +26,35 @@ def get_home():
 def get_book_content(offset, user_id=None):
     limit = 5
     # how to get the books for a selected genre
-    upper_limit = mongo.db.books.count()
-    results = mongo.db.books.find().sort(
-        '_id', -1).skip(int(offset)).limit(int(limit))
-    print(upper_limit)
-    if 'user' in session:
-        # If so get the user
-        user_id = mongo.db.users.find_one(
-            {'_id': ObjectId(session.get('user'))})
-        upper_limit_profile = mongo.db.books.find(
-            {'user_id': ObjectId(user_id['_id'])}).count()
-        results_profile = mongo.db.books.find({"user_id": ObjectId(user_id['_id'])}).sort(
-            '_id', -1).skip(int(offset)).limit(int(limit))
-        if request.args.get('genre_name'):
-            upper_limit_profile = mongo.db.books.find(
-                {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id['_id'])}).count()
-            if upper_limit_profile == 0:
-                flash('There are no books for this genre!')
-                results_profile = mongo.db.books.find({"user_id": ObjectId(user_id['_id'])}).sort(
-                    '_id', -1).skip(int(offset)).limit(int(limit))
-            else:
-                results_profile = mongo.db.books.find(
-                    {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id['_id'])}).sort('_id', -1).skip(int(offset)).limit(int(limit))
-    else:
-        flash('You must be logged in to view a profile')
-        return redirect(url_for('get_home'))
-    # choose genre
     if request.args.get('genre_name'):
         upper_limit = mongo.db.books.find(
             {'genre_name': request.args.get('genre_name')}).count()
         results = mongo.db.books.find(
             {'genre_name': request.args.get('genre_name')}).sort('_id', -1).skip(int(offset)).limit(int(limit))
+        upper_limit_profile = mongo.db.books.find(
+            {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id)}).count()
+        # if there aren't any books for that genre
+        if upper_limit_profile == 0 and user_id != None:
+            flash('There are no books for this genre!')
+            upper_limit_profile = mongo.db.books.find(
+                {'user_id': ObjectId(user_id)}).count()
+            results_profile = mongo.db.books.find({"user_id": ObjectId(user_id)}).sort(
+                '_id', -1).skip(int(offset)).limit(int(limit))
+        else:
+            upper_limit_profile = mongo.db.books.find(
+                {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id)}).count()
+            results_profile = mongo.db.books.find(
+                {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id)}).sort('_id', -1).skip(int(offset)).limit(int(limit))
+    # if there isn't a genre selected
+    else:
+        upper_limit = mongo.db.books.count()
+        results = mongo.db.books.find().sort(
+            '_id', -1).skip(int(offset)).limit(int(limit))
+        upper_limit_profile = mongo.db.books.find(
+            {'user_id': ObjectId(user_id)}).count()
+        results_profile = mongo.db.books.find({"user_id": ObjectId(user_id)}).sort(
+            '_id', -1).skip(int(offset)).limit(int(limit))
+
     return {
         'offset': offset,
         'upper_limit': upper_limit,
@@ -72,11 +70,12 @@ def get_book_content(offset, user_id=None):
 # limit is the number of books per page and offset is the index where to start on a certain page
 @app.route('/get_books/<offset>', methods=['GET'])
 def get_books(offset):
+    # redirect to the module to get the books
     books = get_book_content(offset)
+    # setup pagination
     next_page = int(offset)
     limit = 5
     upper_limit = books['upper_limit']
-    # setup pagination
     if (int(offset)+int(limit)) < int(upper_limit):
         next_page = int(offset)+int(limit)
     if (int(offset)-int(limit)) > 0:
@@ -86,6 +85,7 @@ def get_books(offset):
     return render_template('books.html',
                            limit=int(limit),
                            offset=books['offset'],
+                           first_page_limit=int(offset),
                            page_limit=int(offset)+int(limit),
                            sum_books=int(upper_limit),
                            results=books['results'],
@@ -96,11 +96,19 @@ def get_books(offset):
 
 @app.route('/profile/<offset>', methods=['GET'])
 def profile(offset):
+    # check if the user is logged in
+    if 'user' in session:
+        # If so get the user
+        user_id = mongo.db.users.find_one(
+            {'_id': ObjectId(session.get('user'))})
+    else:
+        flash('You must be logged in to view a profile')
+        return redirect(url_for('get_home'))
     books = get_book_content(offset, session.get('user'))
+    # setup pagination
     next_page = int(offset)
     limit = 5
     upper_limit = books['upper_limit_profile']
-    # setup pagination
     if (int(offset)+int(limit)) < int(upper_limit):
         next_page = int(offset)+int(limit)
     if (int(offset)-int(limit)) >= 0:
@@ -110,6 +118,7 @@ def profile(offset):
     return render_template('profile.html',
                            offset=books['offset'],
                            limit=int(limit),
+                           first_page_limit=int(offset),
                            page_limit=int(offset)+int(limit),
                            sum_books=int(upper_limit),
                            results=books['results_profile'],
@@ -312,7 +321,6 @@ def reset_password():
         # and to check if the new password and new password2 actualy match
         if form['password'] == form['password_2']:
             user = mongo.db.users.find_one({'email': form['email']})
-            print(user)
             if user:
                 hash_pass = generate_password_hash(form['password'])
                 mongo.db.users.update_one({"_id": user['_id']}, {

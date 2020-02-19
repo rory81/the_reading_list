@@ -75,7 +75,7 @@
 	</div>
 	<!-- pagination buttons: previous & next button-->
 	<div class="page_buttons mx-auto mt-5">
-		{% if prv_page >= limit %}
+		{% if first_page_limit >= limit %}
 		<button onclick="window.location.href='{{url_for('get_books',offset=prv_page,genre_name=request.args.get('genre_name'))}}'" class="btn mt-4 previous">
                 <i class="material-icons prefix">chevron_left chevron_left</i>
             </button>
