@@ -2,7 +2,7 @@
 
 <img src="./static/images/tree_with_books_small.png">
 
-# The Reading List
+# The Reading List 
 ###### Disclaimer: *this app is made for educational use only.*
 The current book apps have a lot of commercials. Moreover, all books have so many genres that it is impossible to get an idea about what the book is really about.
 The books that get automatically chosen are the books with the highest rating, eventhough those do not necesarily are the best books.
