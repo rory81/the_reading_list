@@ -33,18 +33,8 @@ def get_book_content(offset, user_id=None):
             {'genre_name': request.args.get('genre_name')}).sort('_id', -1).skip(int(offset)).limit(int(limit))
         upper_limit_profile = mongo.db.books.find(
             {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id)}).count()
-        # if there aren't any books for that genre
-        if upper_limit_profile == 0 and user_id != None:
-            flash('There are no books for this genre!')
-            upper_limit_profile = mongo.db.books.find(
-                {'user_id': ObjectId(user_id)}).count()
-            results_profile = mongo.db.books.find({"user_id": ObjectId(user_id)}).sort(
-                '_id', -1).skip(int(offset)).limit(int(limit))
-        else:
-            upper_limit_profile = mongo.db.books.find(
-                {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id)}).count()
-            results_profile = mongo.db.books.find(
-                {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id)}).sort('_id', -1).skip(int(offset)).limit(int(limit))
+        results_profile = mongo.db.books.find(
+            {'genre_name': request.args.get('genre_name'), 'user_id': ObjectId(user_id)}).sort('_id', -1).skip(int(offset)).limit(int(limit))
     # if there isn't a genre selected
     else:
         upper_limit = mongo.db.books.count()
@@ -63,7 +53,6 @@ def get_book_content(offset, user_id=None):
         'results_profile': results_profile,
         'genres': list(mongo.db.genres.find())
     }
-
 
 # displays all the books ever added by users and all books are visible to all users
 # with or without an account
@@ -118,6 +107,7 @@ def profile(offset):
     return render_template('profile.html',
                            offset=books['offset'],
                            limit=int(limit),
+                           upper_limit=upper_limit,
                            first_page_limit=int(offset),
                            page_limit=int(offset)+int(limit),
                            sum_books=int(upper_limit),
