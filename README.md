@@ -4,7 +4,7 @@
 
 # The Reading List
 ###### Disclaimer: *this app is made for educational use only.*
-The current book apps have a lot of commercials, all books have many genres making it impossible to get an idea about what the book is really about.
+The current book apps have a lot of commercials. Moreover, all books have so many genres that it is impossible to get an idea about what the book is really about.
 The books that get automatically chosen are the books with the highest rating, eventhough those do not necesarily are the best books.
 It is like the movies, when there are a lot of famous actors or have won many oscars the changes are high that I am not going to like the movie.
 
@@ -154,12 +154,26 @@ The former is to add collections to the database. For this project the underline
 Create an instance of PyMongo and add the app into that by adding "mongo = PyMongo(app)" to the python file.
 
 
+### **app.py**
+The python file app.py was created for the flask routes and python code.
+
+Add the underlining to the app.py file:
+
+---standard python library---
+import os
+
 ### **Flask**
-Flask was installed by using pip3 install flask. For python 3 use pip3 and not pip.
+Flask was installed by using pip3 install flask. For python 3 you may have to use pip3 and not pip.
 (gitpod doesn't need the addition of sudo, but if you are working on a different IDE the command sudo pip3 install flask is probably needed)
 Add the following to the app.py file: from flask import Flask
 
 create a Flask app by adding 'app = Flask(__name__)' to the python file
+
+Add the underlining to the app.py file:
+
+---to be able to hash (and reverse the hash of) the password---
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 ### **Connect Flask to MongoDB**
 To get Flask talking to MongoDB a third party library needs to be installed by entering 'pip3 install flask-pymongo' in the terminal.
