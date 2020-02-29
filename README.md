@@ -329,6 +329,7 @@ The following pages where checked and ok. They were checked with the original vi
 - reset_password
 
 [CSS validation](https://jigsaw.w3.org/css-validator/#validate_by_input): No errors/warnings Found
+[JS validation](https://jshint.com/): Noted only the use of let
 [Python validation](https://extendsclass.com/python-tester.html):
 Error was found because the following code was found:
 **flash(f'{form["email"]} already exists)**
