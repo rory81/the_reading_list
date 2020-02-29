@@ -15,8 +15,9 @@ The user can see what other books are added by other users and use the link to b
 Before going into the user stories it should be noted that a future feature should be to connect to an excisting database of books.
 That way the user doesn't have to fill in the books manually. But for now it is a good way to implement the C (create) from the CRUD principle.
 
-The mockups are in the folder static/mockups and presented as png files.
-Deviation was mostly additions like the change password and making two pages for the editbook page, one with and one without edit/delete buttons
+*Mockups*
+The mockups are in a git folder (https://github.com/rory81/the_reading_list/tree/master/static/mockups) and presented as png files.
+Deviation was mostly additions like the change/hash password and making two pages for the editbook page, one with and one without edit/delete buttons, or resizing of the books for aesthetic purposes.
 
 ### **Home**
 They say don't judge a book by its cover, but there are readers that pick a book based on how pretty, weird or scary the cover looks.
