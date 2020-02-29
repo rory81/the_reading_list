@@ -148,9 +148,9 @@ the option to create a new database. For this project the reading_list database 
 
 Next to the newly created database is a plus-button or a trash can button. The latter is obviously to delete the database.
 The former is to add collections to the database. For this project the underlined collections were made:
-1. books: all books added by the users are collected here, with the user_id from the user who added the book
+1. books: all books added by the users are collected here, with the earlier mentioned fields per book, with the user_id from the user who added the book
 2. genres: default genres are maintained in this collection
-3. users: user info is collected when a user registers and is used to personalise the reading list
+3. users: (hashed) user info is collected when a user registers and is used to personalise the reading list in "My Books"
 
 Create an instance of PyMongo and add the app into that by adding "mongo = PyMongo(app)" to the python file.
 
