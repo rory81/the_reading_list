@@ -387,11 +387,11 @@ and the Heroku site for a more detailed explanation of some terminology used by 
 
 - logo picture: https://www.kindpng.com/downpng/JRRJib_vector-knowledge-color-tree-illustration-book-reading-book/
 
-- https://www.w3schools.com/ & https://stackoverflow.com/ to help with issues
+- https://www.w3schools.com/ & https://stackoverflow.com/ to help with problem solving
 
-- https://gist.github.com/prof3ssorSt3v3/29e623d441e8174ffaef17741a1bba14 (star rating system)
+- https://gist.github.com/prof3ssorSt3v3/29e623d441e8174ffaef17741a1bba14 (code for the star rating system)
 
-- https://github.com/MiroslavSvec/DCD_lead (register/login/hashing password)
+- https://github.com/MiroslavSvec/DCD_lead (code for the register/login/hashing password)
 
 - my mentor, Maranatha Ilesanmi,for challenging me and helping when needed.
 
